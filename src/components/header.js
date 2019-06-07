@@ -1,42 +1,48 @@
-import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
+import styled from "styled-components"
 
-const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      background: `rebeccapurple`,
-      marginBottom: `1.45rem`,
-    }}
-  >
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-      }}
-    >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
-    </div>
-  </header>
+import Logo from "./logo"
+
+const HeaderBlock = styled.h1`
+  font-size: 1.5em;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  div {
+    a p {
+      font-size: 0.5em;
+      color: #bbb;
+    }
+  }
+`
+
+const Header = ({ siteMetadata: { title, description } }) => (
+    <HeaderBlock>
+      <div>
+        <Logo />
+      </div>
+      <div>
+        <a href="/">
+          {title}
+          <p>{description}</p>
+        </a>
+      </div>
+    </HeaderBlock>
 )
 
 Header.propTypes = {
-  siteTitle: PropTypes.string,
+  siteMetadata: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+  }),
 }
 
 Header.defaultProps = {
-  siteTitle: ``,
+  siteMetadata: {
+    title: "title",
+    description: "description",
+  },
 }
 
 export default Header
