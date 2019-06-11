@@ -16,7 +16,8 @@ import {
 } from "react-icons/fa"
 
 const SocialLink = styled.div`
-    font-size: 2em
+    font-size: 1.5em;
+    word-spacing: .4em;
 }`
 
 const SocialLinks = () => (

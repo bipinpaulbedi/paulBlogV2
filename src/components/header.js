@@ -3,6 +3,8 @@ import React from "react"
 import styled from "styled-components"
 
 import Logo from "./logo"
+import SocialLinks from "./socialLinks"
+import Menu from "./menu"
 
 const HeaderBlock = styled.h1`
   font-size: 1.5em;
@@ -10,6 +12,7 @@ const HeaderBlock = styled.h1`
   display: flex;
   justify-content: center;
   div {
+    margin-bottom: 0;
     a p {
       font-size: 0.5em;
       color: #bbb;
@@ -18,6 +21,7 @@ const HeaderBlock = styled.h1`
 `
 
 const Header = ({ siteMetadata: { title, description } }) => (
+  <React.Fragment>
     <HeaderBlock>
       <div>
         <Logo />
@@ -29,6 +33,9 @@ const Header = ({ siteMetadata: { title, description } }) => (
         </a>
       </div>
     </HeaderBlock>
+    <SocialLinks />
+    <Menu />
+  </React.Fragment>
 )
 
 Header.propTypes = {

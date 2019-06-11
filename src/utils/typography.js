@@ -67,6 +67,10 @@ const typography = new Typography({
     "a:hover,a:active": {
       color: '#ff5252',
     },
+    "hr":{
+      opacity: .4,
+      margin: "2em",
+    },
     "mark,ins": {
       background: "#007acc",
       color: "white",
