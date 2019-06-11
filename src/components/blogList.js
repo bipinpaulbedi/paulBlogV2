@@ -1,6 +1,24 @@
 import React from "react"
 import { StaticQuery, graphql } from "gatsby"
 import * as R from "ramda"
+import styled from "styled-components"
+
+const BlogGroup = styled.div`
+  font-size: 2em;
+  color: #bbb;
+`
+
+const HomeContentLinks = styled.p`
+  font-size: 1.2em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  a {
+    color: #333;
+    :hover {
+      color: #ff5252;
+    }
+  }
+`
 
 const IndexPageBlogList = () => (
   <StaticQuery
@@ -22,23 +40,29 @@ const IndexPageBlogList = () => (
     render={({ allMarkdownRemark: { edges } }) => {
       const groupedPosts = R.groupBy(ele => {
         return ele.node.frontmatter.year
-      }, edges);
+      }, edges)
 
       const elems = Object.keys(groupedPosts)
         .sort()
-        .reverse();
+        .reverse()
 
-      elems.map(ele => {
+      return elems.map(ele => {
         return (
           <React.Fragment>
-            <div>{ele}</div>
+            <BlogGroup>{ele}</BlogGroup>
             {groupedPosts[ele].map(
               ({
                 node: {
                   frontmatter: { date, year, title },
                 },
               }) => {
-               return ( <div>{title}</div> );
+                return (
+                  <HomeContentLinks>
+                    <a href="/title}" key={title}>
+                      {title}
+                    </a>
+                  </HomeContentLinks>
+                )
               }
             )}
           </React.Fragment>

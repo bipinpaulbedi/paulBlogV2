@@ -35,8 +35,9 @@ const Layout = ({ children }) => (
     render={data => (
       <Main>
         <Header siteMetadata={data.site.siteMetadata} />
-        <hr/>
+        <hr />
         {children}
+        <hr />
         <footer>
           © {new Date().getFullYear()}, {data.site.siteMetadata.author}
           {` `}
