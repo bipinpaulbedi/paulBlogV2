@@ -17,7 +17,7 @@ const TopMenu = styled.div`
 const Menu = () => (
   <TopMenu>
     <a href="/">Home</a>
-    <a href="/">Tags</a>
+    <a href="/tagcloud/">Tags</a>
     <a href="/">About</a>
     <a href="/">Contact</a>
   </TopMenu>
