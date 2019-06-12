@@ -40,7 +40,7 @@
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\"",
     "clean": "rm -r docs",
-    "postbuild": "mv public docs"
+    "postbuild": "mv public docs && cp src/CNAME docs/CNAME"
   },
   "repository": {
     "type": "git",
