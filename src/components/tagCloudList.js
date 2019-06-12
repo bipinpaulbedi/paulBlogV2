@@ -4,7 +4,7 @@ import * as R from "ramda"
 import styled from "styled-components"
 
 const Tag = styled.a`
-    margin: .5em
+    margin: .3em
 `
 
 const TagCloudList = () => (
