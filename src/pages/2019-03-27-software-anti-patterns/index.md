@@ -5,6 +5,7 @@ tags: [microservices, design-patterns, technology, article, anti-patterns]
 comments: true
 subTitle: deciding what not to do is as important as deciding what to do
 date: "2019-03-27T00:00:00.000Z"
+path: "2019-03-27-software-anti-patterns"
 ---
 
 ![anti-pattern](anti-pattern-patch.jpg)

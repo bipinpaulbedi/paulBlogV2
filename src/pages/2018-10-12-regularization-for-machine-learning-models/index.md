@@ -5,6 +5,7 @@ tags: [regularization, data-modelling, feature-modelling, machine-learning, arti
 comments: true
 subTitle: feature engineering for machine learning models
 date: "2018-10-12T00:00:00.000Z"
+path: "2018-10-12-regularization-for-machine-learning-models"
 ---
 
 The most difficult and time consuming activity in any machine learning project is modelling the domain. The objective of training the model is to reduce the cost function, which can have direct dependency on feature selection and their representation. The results you achieve is a function of the model features and the weights being selected. Even your framing of the problem and measures you’re using to estimate accuracy play a part. Your results are dependent on many inter-dependent properties

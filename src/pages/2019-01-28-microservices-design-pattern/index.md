@@ -5,6 +5,7 @@ tags: [microservices, design-patterns, technology, article]
 comments: true
 subTitle: architects black book for microservices implementation
 date: "2019-01-28T00:00:00.000Z"
+path: "2019-01-28-microservices-design-pattern"
 ---
 
 ![microservices](microservices.png)

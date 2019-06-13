@@ -5,6 +5,7 @@ tags: [elixir, phoenix, actor-model, design-patterns, functional-programming, te
 comments: true
 subTitle: concurrent and/or parallel processing model
 date: "2019-01-04T00:00:00.000Z"
+path: "2019-01-04-elixir-concurrency-models"
 ---
 
 A concurrent program has multiple logical threads of control. These threads may or may not run in parallel. A parallel program potentially runs more quickly than a sequential program by executing different parts of the computation simultaneously (in parallel). It may or may not have more than one logical thread of control. An alternative way of thinking about this is that concurrency is an aspect of the problem domain—your program needs to handle multiple simultaneous (or near-simultaneous) events. Parallelism, by contrast, is an aspect of the solution domain—you want to make your program faster by processing different portions of the problem in parallel.

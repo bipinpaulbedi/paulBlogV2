@@ -5,6 +5,7 @@ tags: [api, design, design-patterns, article]
 comments: true
 subTitle: coding bluprint for pragmatic rest api developers
 date: "2018-10-10T00:00:00.000Z"
+path: "2018-10-10-coding-blueprint-for-pragmatic-rest-api-developers"
 ---
 
 As per Wikipedia, Design thinking is the cognitive process from which design concepts (e.g. ideas for products) emerge. Design thinking is related to, but is different from problem-solving, decision-making, creativity, sketching and prototyping. During design thinking, the designer's attention oscillates between their understanding of a problem context and their ideas for a solution. New solution ideas lead to a deeper understanding of the problematic context, which in turn triggers more solution ideas.

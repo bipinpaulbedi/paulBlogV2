@@ -18,8 +18,7 @@ const Menu = () => (
   <TopMenu>
     <a href="/">Home</a>
     <a href="/tagcloud/">Tags</a>
-    <a href="/">About</a>
-    <a href="/">Contact</a>
+    <a href="/about">About</a>
   </TopMenu>
 )
 
