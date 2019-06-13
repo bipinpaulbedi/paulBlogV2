@@ -2,7 +2,9 @@ import React from "react"
 import { graphql } from "gatsby"
 
 export default function BlogTemplate({ data }) {
-  const { markdownRemark } = data;
+  const { markdownRemark } = data
+
+  if (!markdownRemark) return null
   const {
     frontmatter: { title, date },
     html,
