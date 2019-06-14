@@ -8,22 +8,28 @@ const typography = new Typography({
   googleFonts: [
     {
       name: "Lora",
-      styles: ["900","400","700"],
+      styles: ["900", "400", "700"],
     },
     {
-        name: "EB Garamond",
-        styles: ["900","400","700"],
-      },
+      name: "EB Garamond",
+      styles: ["900", "400", "700"],
+    },
   ],
   headerFontFamily: ["Lora", "Georgia", "Palatino", "Helvetica"],
   bodyFontFamily: ["EB Garamond", "Georgia", "Palatino", "Helvetica"],
-  bodyColor: '#333',
+  bodyColor: "#333",
   headerWeight: 900,
   bodyWeight: 400,
   boldWeight: 700,
   overrideStyles: ({ adjustFontSizeTo, scale, rhythm }, options) => ({
+    body: {
+      margin: "auto",
+      maxWidth: "700px",
+      width: "90%",
+      textAlign: "center",
+    },
     code: {
-      color: '#bbb',
+      color: "#bbb",
     },
     blockquote: {
       ...scale(1 / 5),
@@ -65,10 +71,10 @@ const typography = new Typography({
       textDecoration: "none",
     },
     "a:hover,a:active": {
-      color: '#ff5252',
+      color: "#ff5252",
     },
-    "hr":{
-      opacity: .4,
+    hr: {
+      opacity: 0.4,
       margin: "2em",
     },
     "mark,ins": {
