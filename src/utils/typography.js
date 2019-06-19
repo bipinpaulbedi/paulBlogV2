@@ -29,7 +29,10 @@ const typography = new Typography({
       textAlign: "center",
     },
     code: {
-      color: "#bbb",
+      color: "#36393D",
+      backgroundColor: "#EEEEEE",
+      padding: "0.5em 0.5em",
+      display: "block",
     },
     blockquote: {
       ...scale(1 / 5),

@@ -29,7 +29,7 @@ L1 and L2 are the most common types of regularization. The key difference betwee
 **L1 regularization**  
 A regression model that uses L1 regularization technique is called Lasso Regression
 
-`Cost function = Loss + &Lambda;/2m * &Sigma;&#124;weight&#124;`
+`Cost function = Loss + Λ/2m * σ|weight|`
 
 Here, lambda is the regularization parameter. It is the hyperparameter whose value is optimized for better results. if lambda is zero then you can imagine we get back original loss. However, if lambda is very large then it will add too much weight and it will lead to under-fitting.  
 In L1 regularization, we penalize the absolute value of the weights. The weights may be reduced to zero here. Hence, it is very useful when we are trying to compress our model. Otherwise, we usually prefer L2 over it.
@@ -37,7 +37,7 @@ In L1 regularization, we penalize the absolute value of the weights. The weights
 **L2 regularization**  
 A regression model model which uses L2 is called Ridge Regression.
 
-`Cost function = Loss + &Lambda;/2m * &Sigma;&#124;weight&#124;^2`
+`Cost function = Loss + Λ/2m * σ|weight|^2`
 
 It adds “squared magnitude” of coefficient as penalty term to the loss function. L2 regularization is also known as weight decay as it forces the weights to decay towards zero (but not exactly zero).
 

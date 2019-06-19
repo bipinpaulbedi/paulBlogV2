@@ -23,29 +23,33 @@ Before analysing the algorithms, we shall establish certain common complexity cl
 Big-O, commonly written as O, is an Asymptotic Notation for the worst case, or ceiling of growth for a given function. It provides us with an asymptotic upper bound for the growth rate of the runtime of an algorithm.  
 For e.g. f(n) is your algorithm runtime, and g(n) is an arbitrary time complexity you are trying to relate to your algorithm. f(n) is O(g(n)), if for some real constants c (c > 0) and n0, f(n) <= c g(n) for every input size n (n > n0)
 
-`f(n) = O(g(n) For K and N0`  
-`if f(n) <= k * g(n) where n>=n0`  
-`e.g.`  
-`f(n) = 2n^2 + 3n + 1`
-`since 2n^2 + 3n^2 + n2 = 6n^2`  
-`f(n) = 2n^2 + 3n + 1 <= 6n^2 for n >= ?`  
-`f(n) <= k * g(n)`  
-`i.e. 6 * n^2`  
-`Thus f(n) = O(n^2)`
+```
+f(n) = O(g(n) For K and N0
+if f(n) <= k * g(n) where n>=n0
+e.g.
+f(n) = 2n^2 + 3n + 1
+since 2n^2 + 3n^2 + n2 = 6n^2
+f(n) = 2n^2 + 3n + 1 <= 6n^2 for n >= ?
+f(n) <= k * g(n)
+i.e. 6 * n^2
+Thus f(n) = O(n^2)
+```
 
 **Big-Omega**  
 Big-Omega, commonly written as &Omega;, is an Asymptotic Notation for the best case, or a floor growth rate for a given function. It provides us with an asymptotic lower bound for the growth rate of the runtime of an algorithm.  
 f(n) is &Omega;(g(n)), if for some real constants c (c > 0) and n0 (n0 > 0), f(n) is >= c g(n) for every input size n (n > n0).
 
-`f(n) = BIG-OMEGA(g(n) For K and N0`  
-`if f(n) >= k * g(n) where n>=n0`  
-`e.g.`  
-`f(n) = 2n^2 + 3n + 1`
-`f(n) = 2n^2 + 3n + 1 >= n^2 for n >= ?`  
-`f(n) <= k * g(n)`  
-`i.e. 1 * n^2`  
-`or k * g(n)`  
-`Thus f(n) = BIG-OMEGA(n^2)`
+```
+f(n) = BIG-OMEGA(g(n) For K and N0
+if f(n) >= k * g(n) where n>=n0
+e.g.
+f(n) = 2n^2 + 3n + 1
+f(n) = 2n^2 + 3n + 1 >= n^2 for n >= ?
+f(n) <= k * g(n)
+i.e. 1 * n^2
+or k * g(n)
+Thus f(n) = BIG-OMEGA(n^2)
+```
 
 **Theta**  
 Theta, commonly written as Θ, is an Asymptotic Notation to denote the asymptotically tight bound on the growth rate of the runtime of an algorithm.  
@@ -53,12 +57,14 @@ i.e. if O(g(n)) = &Omega;(g(n))
 Then  
 f(n) = &Theta;(g(n))
 
-`If f(n) = O(n2)`  
-`and f(n) = BIG-OMEGA(n^2)`  
-`also`  
-`f(n) = O(g(n)) and f(n) = BIG-OMEGA(g(n))`
-`Then f(n) = THETA(g(n))`  
-`Thus f(n) = THETA(n^2)`
+```
+If f(n) = O(n2)
+and f(n) = BIG-OMEGA(n^2)
+also
+f(n) = O(g(n)) and f(n) = BIG-OMEGA(g(n))
+Then f(n) = THETA(g(n))
+Thus f(n) = THETA(n^2)
+```
 
 Note
 The asymptotic growth rates provided by big-O and big-omega notation may or may not be asymptotically tight. Thus we use small-o and small-omega notation to denote bounds that are not asymptotically tight.
@@ -67,13 +73,15 @@ The main difference is that in f(n) = O(g(n)), the bound f(n) <= g(n) holds for 
 Similarly
 f(n) = Ω(g(n)), the bound f(n) >= g(n) holds for **some** constant c > 0, but in f(n) = &omega;(g(n)), the bound f(n) > c g(n) holds for **all** constants c > 0.
 
-`Calculating for n!`  
-`if f(n) = n!`  
-`f(n) = n * (n-1) * (n-2)... 2 * 1`
-`For upper bound = n * n * n * n * n * n * n`  
-`i.e. f(n) = n! <= n^n for n>=?`  
-`f(n) = O(n^n)`
-`For lower bound = 1 * 1 * 1 * 1 * 1...1`
-`= k`
-`Thus f(n) = BIG-OMEGA(1) or BIG-OMEGA(K)`  
-`since O and BIG-OMEGA for n! is not equal it does not have a tight bound`
+```
+Calculating for n!
+if f(n) = n!
+f(n) = n * (n-1) * (n-2)... 2 * 1
+For upper bound = n * n * n * n * n * n * n
+i.e. f(n) = n! <= n^n for n>=?
+f(n) = O(n^n)
+For lower bound = 1 * 1 * 1 * 1 * 1...1
+= k
+Thus f(n) = BIG-OMEGA(1) or BIG-OMEGA(K)
+since O and BIG-OMEGA for n! is not equal it does not have a tight bound
+```

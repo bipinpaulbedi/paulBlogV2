@@ -3,20 +3,36 @@ import { graphql } from "gatsby"
 import styled from "styled-components"
 import { distanceInWordsToNow } from "date-fns"
 
+import Layout from "../components/layout"
+import SEO from "../components/seo"
+
 const Post = styled.div`
   text-align: left;
 `
-const DateDisplay = styled.h2`
+
+const TitleDisplay = styled.h1`
+  margin-top: 0;
+`
+
+const SubTitleDisplay = styled.h2`
+  font-size: 1em;
+  margin: 0;
+`
+
+const DateDisplay = styled.h3`
   font-size: 0.8em;
   text-align: left;
+  color: #ff5252;
+  line-height: 1.5em;
+`
+const Seperator = styled.span`
+  color: #bbb;
 `
 
 export default function BlogTemplate({ data }) {
   const { markdownRemark } = data
-
-  if (!markdownRemark) return null
   const {
-    frontmatter: { title, date, pathForPage },
+    frontmatter: { title, date, pathForPage, subTitle, tags, categories },
     html,
     timeToRead,
   } = markdownRemark
@@ -24,15 +40,24 @@ export default function BlogTemplate({ data }) {
     addSuffix: true,
   })
   return (
-    <div>
-      <h1>
+    <Layout>
+      <SEO title={title} keywords={tags} />
+      <TitleDisplay>
         <a href={pathForPage}>{title}</a>
-      </h1>
+      </TitleDisplay>
+      <SubTitleDisplay>{subTitle}</SubTitleDisplay>
       <DateDisplay>
-        {displayDate} | {timeToRead} min read
+        {displayDate} <Seperator>|</Seperator> {timeToRead} min read{" "}
+        <Seperator>|</Seperator>{" "}
+        <a href={`/tagCloud/${categories}`}>{`#${categories}`}</a>{" "}
+        {tags.map(ele => (
+          <React.Fragment>
+            <a href={`/tagCloud/${ele}`}>{`#${ele}`}</a>{" "}
+          </React.Fragment>
+        ))}
       </DateDisplay>
       <Post dangerouslySetInnerHTML={{ __html: html }} />
-    </div>
+    </Layout>
   )
 }
 
@@ -45,6 +70,9 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         pathForPage
         title
+        subTitle
+        tags
+        categories
       }
     }
   }

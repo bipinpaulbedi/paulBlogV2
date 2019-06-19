@@ -32,56 +32,68 @@ OTP is a set of Erlang libraries and design principles providing middle-ware to 
 
 Elixir actors communicate via message passing using mailboxes, which are queues by data structure. For our example, we will create a md5 hash generator which based on a string return a md5 value of a string. If the value is already exiting it will not recompute to save CPU resource but send it from in-memory cache.
 
-`defmodule HashIt do`  
-&nbsp;&nbsp;&nbsp;&nbsp;`def loop do`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`receive do`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`{:compute, value} -> IO.puts("#{value}")` will replace #{value} with computed hash function  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`end`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`loop`  
-&nbsp;&nbsp;&nbsp;&nbsp;`end`  
-`end`  
-`----------`  
-`pid = spawn(&HashIt.loop/0)`  
-`send(pid, {:compute, "bipin"})`  
-`sleep(1000)`
+```
+defmodule HashIt do
+  def loop do
+    receive do
+      {:compute, value} -> IO.puts("#{value}")
+    end
+    loop
+  end
+end
+```
+
+```
+pid = spawn(&HashIt.loop/0)
+send(pid, {:compute, "bipin"})
+sleep(1000)
+```
 
 This function implements an infinite loop by calling itself recursively. The receive block waits for a message and then uses pattern matching to work out how to handle it. Elixir implements tail-call elimination. Tail-call elimination, as its name suggests, replaces a recursive call with a simple jump if the last thing the function does is call itself, thus infinite recursive call o loop function will not result in stack overflow.
 
-`defmodule HashIt do`  
-&nbsp;&nbsp;&nbsp;&nbsp;`def loop do`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`receive do`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`{:compute, value} -> IO.puts(:crypto.hash(:md5, value) |> Base.encode16())`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`{:shutdown} -> -> exit(:normal)`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`end`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`loop`  
-&nbsp;&nbsp;&nbsp;&nbsp;`end`  
-`end`  
-`----------`  
-`receive do`  
-&nbsp;&nbsp;&nbsp;&nbsp;`{:EXIT, ^pid, reason} -> IO.puts("HasIt has exited (#{reason})")`  
-`end`
+```
+defmodule HashIt do
+  def loop do
+    receive do
+      {:compute, value} -> IO.puts(:crypto.hash(:md5, value) |> Base.encode16())
+      {:shutdown} -> -> exit(:normal)
+    end
+    loop
+  end
+end
+```
 
-`Process.flag(:trap_exit, true)`  
-`pid = spawn_link(&HashIt.loop/0)`  
-`send(pid, {:compute, "bipin"})`  
-`send(pid, {:shutdown}`
+```
+receive do
+  {:EXIT, ^pid, reason} -> IO.puts("HasIt has exited (#{reason})")
+end
+```
+
+```
+Process.flag(:trap_exit, true)
+pid = spawn_link(&HashIt.loop/0)
+send(pid, {:compute, "bipin"})
+send(pid, {:shutdown}
+```
 
 **Adding state to the actor**
 
 We will add a variable to store all values sent and their computed hash
 
-`defmodule HashIt do`  
-&nbsp;&nbsp;&nbsp;&nbsp;`def loop(strg) do`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`receive do`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`{:compute, value} ->`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`hashValue = :crypto.hash(:md5 , value) |> Base.encode16()`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`updatedStrg = strg.put(strg, value, hashValue)`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`IO.puts(hashValue)`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`loop(updatedStrg)`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`end`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`loop`  
-&nbsp;&nbsp;&nbsp;&nbsp;`end`  
-`end`
+```
+defmodule HashIt do
+  def loop(strg) do
+    receive do
+      {:compute, value} ->
+        hashValue = :crypto.hash(:md5 , value) |> Base.encode16()
+        updatedStrg = strg.put(strg, value, hashValue)
+        IO.puts(hashValue)
+        loop(updatedStrg)
+    end
+    loop
+  end
+end
+```
 
 Here Strg is an elixir Map and we can start the process by using
 
@@ -89,135 +101,151 @@ Here Strg is an elixir Map and we can start the process by using
 
 or we can define methods to start, compute also provide it a name instead of using pid by registering it.
 
-`defmodule HashIt do`  
-&nbsp;&nbsp;&nbsp;&nbsp;`def start(name, strg, cryptoType) do`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`pid = spawn(__MODULE__, :loop, [strg, cryptoType])`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Process.register(pid, name)`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`pid`  
-&nbsp;&nbsp;&nbsp;&nbsp;`end`  
-&nbsp;&nbsp;&nbsp;&nbsp;`def compute(name, value) do`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`ref = make_ref()`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`send(name, {:compute, value, self(), ref})`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`receive do`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`{:ok, ^ref, reply} -> reply`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`end`  
-&nbsp;&nbsp;&nbsp;&nbsp;`end`  
-&nbsp;&nbsp;&nbsp;&nbsp;`def loop(strg, cryptoType) do`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`receive do`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`{:compute, value, sender, ref} ->`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`hashValue = :crypto.hash(cryptoType , value) |> Base.encode16()`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`updatedStrg = Map.put_new(strg, value, hashValue)`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`send(sender, {:ok, ref, hashValue})`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`loop(updatedStrg, cryptoType)`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`end`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`loop`  
-&nbsp;&nbsp;&nbsp;&nbsp;`end`  
-`end`
+```
+defmodule HashIt do
+  def start(name, strg, cryptoType) do
+    pid = spawn(__MODULE__, :loop, [strg, cryptoType])
+    Process.register(pid, name)
+    pid
+  end
+  def compute(name, value) do
+    ref = make_ref()
+    send(name, {:compute, value, self(), ref})
+    receive do
+      {:ok, ^ref, reply} -> reply
+    end
+  end
+  def loop(strg, cryptoType) do
+    receive do
+      {:compute, value, sender, ref} ->
+        hashValue = :crypto.hash(cryptoType , value) |> Base.encode16()
+        updatedStrg = Map.put_new(strg, value, hashValue)
+        send(sender, {:ok, ref, hashValue})
+        loop(updatedStrg, cryptoType)
+    end
+    loop
+  end
+end
+```
 
 The program can be started via start method and uses pseudo-variable **MODULE**, which evaluates to the name of the current module. The Process.register registers the pid as name :hashit. Moreover, instead of printing the hash value it now returns it to the sender, which helps in bi-directional communication. The carot ^ symbol in {:ok, ^ref, reply} denotes we want to match the value rather than binding it. The [pattern matching](https://elixir-lang.org/getting-started/pattern-matching.html) in elixir is used to match inside a data structure. Effectively we can now execute the HashIt module via
 
-`:hashItMD5 |> HashIt.start([%{}, :md5])`  
-`:hashItMD5 |> HashIt.compute("bipin")`
+```
+:hashItMD5 |> HashIt.start([%{}, :md5])
+:hashItMD5 |> HashIt.compute("bipin")
+```
 
 **Adding check and compute logic**
 
 Adding the return value to check in the cache before recomputing above module can be refactored as
 
-`defmodule HashIt do`  
-&nbsp;&nbsp;&nbsp;&nbsp;`def start(name, strg, cryptoType) do`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`pid = spawn(__MODULE__, :loop, [strg, cryptoType])`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Process.register(pid, name)`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`pid`  
-&nbsp;&nbsp;&nbsp;&nbsp;`end`  
-&nbsp;&nbsp;&nbsp;&nbsp;`def compute(name, value) do`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`ref = make_ref()`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`send(name, {:compute, value, self(), ref})`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`receive do`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`{:ok, ^ref, reply} -> reply`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`end`  
-&nbsp;&nbsp;&nbsp;&nbsp;`end`  
-&nbsp;&nbsp;&nbsp;&nbsp;`def loop(strg, cryptoType) do`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`receive do`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`{:compute, value, sender, ref} ->`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`result = Map.fetch(strg, value)`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`case result do`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`{:ok, val} -> send(sender, {:ok, ref, val})`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`loop(strg, cryptoType)`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`{:error, _reason} ->`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`hashValue = :crypto.hash(cryptoType , value) |> Base.encode16()`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`updatedStrg = Map.put_new(strg, value, hashValue)`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`send(sender, {:ok, ref, hashValue})`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`loop(updatedStrg, cryptoType)`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`end`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`end`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`loop`  
-&nbsp;&nbsp;&nbsp;&nbsp;`end`  
-`end`
+```
+defmodule HashIt do
+  def start(name, strg, cryptoType) do
+    pid = spawn(__MODULE__, :loop, [strg, cryptoType])
+    Process.register(pid, name)
+    pid
+  end
+  def compute(name, value) do
+    ref = make_ref()
+    send(name, {:compute, value, self(), ref})
+    receive do
+      {:ok, ^ref, reply} -> reply
+    end
+  end
+  def loop(strg, cryptoType) do
+    receive do
+      {:compute, value, sender, ref} ->
+        result = Map.fetch(strg, value)
+        case result do
+          {:ok, val} -> send(sender, {:ok, ref, val})
+            loop(strg, cryptoType)
+          {:error, _reason} ->
+            hashValue = :crypto.hash(cryptoType , value) |> Base.encode16()
+            updatedStrg = Map.put_new(strg, value, hashValue)
+            send(sender, {:ok, ref, hashValue})
+            loop(updatedStrg, cryptoType)
+        end
+    end
+    loop
+  end
+end
+```
 
 **Making it fault tolerant**
 
 Thus various processes can be started in parallel for different crypto compute example MD5, SHA128, SHA256. Using the above process mechanism we can create multiple processes for different or same task resulting in both concurrent and parallel deterministic outputs. But this architecture does not provide fault tolerance. What if there is an error and it is aborted abruptly? Elixir provides a mechanism to link it to a process which is bi-directional.
 
-`:hashItMD5 |> HashIt.start([%{}, :md5])`  
-`:hashItSHA256 |> HashIt.start([%{}, :sha256])`  
-`:hashItMD5 |> Process.link(:hashItSHA256)`  
-`:hashItMD5 |> exit(:forced_kill)`
+```
+:hashItMD5 |> HashIt.start([%{}, :md5])
+:hashItSHA256 |> HashIt.start([%{}, :sha256])
+:hashItMD5 |> Process.link(:hashItSHA256)
+:hashItMD5 |> exit(:forced_kill)
+```
 
 Since we are using spawn in our hash, We can also use spawn_link method to link process instead of process.link(). Please note links created are bi directional. and calling abnormal exit on :hashItMD5 will also set :hashItSHA256 to nil
 
-`Process.info(:hashItMD5, :status)`  
-<small>nil</small>  
-`Process.info(:hashItSHA256, :status)`  
+`Process.info(:hashItMD5, :status)`
+<small>nil</small>
+`Process.info(:hashItSHA256, :status)`
 <small>nil</small>
 
-but normal exit will keep the linked process active, viz:  
-`:hashItMD5 |> exit(:normal)`  
-`Process.info(:hashItMD5, :status)`  
-<small>nil</small>  
-`Process.info(:hashItSHA256, :status)`  
+but normal exit will keep the linked process active, viz:
+`:hashItMD5 |> exit(:normal)`
+`Process.info(:hashItMD5, :status)`
+<small>nil</small>
+`Process.info(:hashItSHA256, :status)`
 <small>{:status, :waiting}</small>
 
 This implies we can set the system trap to capture other processes exit, when can be utilized to create supervisor and restart the system if the process crashes. We can set Process.flag(:trap_exit, true) to capture the exit of linked process and take appropriate action. In our example of HashIt, a supervisor can be created as:
 
-`defmodule HashItSupervisor do`  
-&nbsp;&nbsp;&nbsp;&nbsp;`def start do`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`spawn(__MODULE__, :loop_system,[])`  
-&nbsp;&nbsp;&nbsp;&nbsp;`end`  
-&nbsp;&nbsp;&nbsp;&nbsp;`def loop_system do`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Process.flag(:trap_exit, true)`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`loop`  
-&nbsp;&nbsp;&nbsp;&nbsp;`end`  
-&nbsp;&nbsp;&nbsp;&nbsp;`def loop do`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`pid = HashIt.start(%{}, :md5)` // instead of using spawn please change it to spawn_link in HashIt module  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`receive do`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`{:EXIT, ^pid, :normal} -> IO.puts("Hash It exited normally")`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`:ok`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`{:EXIT, ^pid, reason} -> IO.puts("Hash It failed with reason #{inspect reason}...restarting")`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`loop`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`end`  
-&nbsp;&nbsp;&nbsp;&nbsp;`end`  
-`end`  
-`----------`  
-`HashItSupervisor.start`
+```
+defmodule HashItSupervisor do
+  def start do
+    spawn(__MODULE__, :loop_system,[])
+  end
+  def loop_system do
+    Process.flag(:trap_exit, true)
+    loop
+  end
+  def loop do
+    pid = HashIt.start(%{}, :md5)
+    // instead of using spawn please change it to spawn_link in HashIt module
+    receive do
+      {:EXIT, ^pid, :normal} -> IO.puts("Hash It exited normally")
+        :ok
+      {:EXIT, ^pid, reason} ->
+        IO.puts("Hash It failed with reason #{inspect reason}...restarting")
+        loop`
+    end
+  end
+end
+```
+
+```
+HashItSupervisor.start
+```
 
 If the HashIt system now crashes it is captured by HashItSupervisor and is restarted. If the two processes are dependent on each other and can result in deadlock or infinite waiting because of crashing of sender the receiver can be guarded using timeout clause in receive do loop by using after clause. example:
 
-`receive do`  
-&nbsp;&nbsp;&nbsp;&nbsp;`{:ok, ^ref, value} -> IO.puts(value)`  
-&nbsp;&nbsp;&nbsp;&nbsp;`after 1000 -> nil`  
-`end`
+```
+receive do
+  {:ok, ^ref, value} -> IO.puts(value)
+  after 1000 -> nil
+end
+```
 
 **Scaling to multiple nodes/computers**
 
 The actor programming naturally supports an approach to writing fault-tolerant code that leverages this observation: the error-kernel pattern. In the elixir system, the kernel is the root supervisor which can start other supervisors or workers. When we create an elixir virtual machine we create a node we can create nodes multiple nodes on the same system or on network of computer by naming them using --name or --sname option. To make multiple nodes part of the same cluster it must use same --cookie name argument. This results in running your system across multiple systems. To multiple connect nodes we can use connect function
 
-`iex(node1@192.168.0.10)1> Node.self`  
-<small>:"node1@192.168.0.10"</small>  
-`iex(node1@192.168.0.10)2> Node.list`  
-<small>[]</small>  
-`iex(node1@192.168.0.10)3> Node.connect(:"node2@192.168.0.20")`  
-<small>true</small>  
-`iex(node1@192.168.0.10)4> Node.list`  
+`iex(node1@192.168.0.10)1> Node.self`
+<small>:"node1@192.168.0.10"</small>
+`iex(node1@192.168.0.10)2> Node.list`
+<small>[]</small>
+`iex(node1@192.168.0.10)3> Node.connect(:"node2@192.168.0.20")`
+<small>true</small>
+`iex(node1@192.168.0.10)4> Node.list`
 <small>[:"node2@192.168.0.20"]</small>
 
 Now use Node.Spwan to start worker or supervisors and use :global.register_name() instead of Process.register() to make names cluster global.

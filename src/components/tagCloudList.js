@@ -4,7 +4,7 @@ import * as R from "ramda"
 import styled from "styled-components"
 
 const Tag = styled.a`
-    margin: .3em
+  margin: 0.3em;
 `
 
 const TagCloudList = () => (
@@ -28,15 +28,15 @@ const TagCloudList = () => (
         allTags.push(...ele.node.frontmatter.tags)
       }, edges)
 
-      const allTagsSorted = allTags.sort();
-      
+      const allTagsSorted = allTags.sort()
+
       const groupedCloud = R.groupBy(ele => {
         return ele
       }, allTagsSorted)
 
       return Object.keys(groupedCloud).map(ele => {
         return (
-          <Tag key={ele} href="/">
+          <Tag key={ele} href={`/tagCloud/${ele}`}>
             {ele} ({groupedCloud[ele].length})
           </Tag>
         )
