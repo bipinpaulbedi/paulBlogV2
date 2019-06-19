@@ -59,7 +59,7 @@ const IndexPageBlogList = () => (
               }) => {
                 return (
                   <HomeContentLinks>
-                    <a href={path} key={title}>
+                    <a href="/" key={title}>
                       {title}
                     </a>
                   </HomeContentLinks>
