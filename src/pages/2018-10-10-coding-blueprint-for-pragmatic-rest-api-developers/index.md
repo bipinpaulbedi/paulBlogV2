@@ -5,7 +5,7 @@ tags: [api, design, design-patterns, article]
 comments: true
 subTitle: coding bluprint for pragmatic rest api developers
 date: "2018-10-10T00:00:00.000Z"
-path: "2018-10-10-coding-blueprint-for-pragmatic-rest-api-developers"
+pathForPage: "2018-10-10-coding-blueprint-for-pragmatic-rest-api-developers"
 ---
 
 As per Wikipedia, Design thinking is the cognitive process from which design concepts (e.g. ideas for products) emerge. Design thinking is related to, but is different from problem-solving, decision-making, creativity, sketching and prototyping. During design thinking, the designer's attention oscillates between their understanding of a problem context and their ideas for a solution. New solution ideas lead to a deeper understanding of the problematic context, which in turn triggers more solution ideas.
@@ -20,11 +20,11 @@ This post is inspired by eBook published by APIgee highlighting the best practic
 Keep it short and simple. Try to use nouns and keep verbs out of your base URL. To smartly cover all possible scenario use HTTP verb standard.
 Eg.
 
-|Resource   |POST             |GET       |PUT                      |DELETE          |
-|-----------|:---------------:|:--------:|:-----------------------:|:--------------:|
-|           |create           |read      |update                   |delete          |
-|/users     |create a new user|list users|bulk update users        |delete all users|
-|/users/1234|error            |show user |update if exists or error|delete user     |
+| Resource    |       POST        |    GET     |            PUT            |      DELETE      |
+| ----------- | :---------------: | :--------: | :-----------------------: | :--------------: |
+|             |      create       |    read    |          update           |      delete      |
+| /users      | create a new user | list users |     bulk update users     | delete all users |
+| /users/1234 |       error       | show user  | update if exists or error |   delete user    |
 
 The point is that developers probably don't need the chart to understand how the API behaves. They can experiment with and learn the API without the documentation.
 
@@ -62,7 +62,7 @@ Some developers advocate as to keep the version information in headers. But API 
 In certain cases, API calls that sends a response which is not a resource e.g. Calculate, Translate are not uncommon depending on the domain.
 In these cases, Use verbs not nouns e.g. /convert?from=USD&to=AUD&amount=100  
 Make it clear in your API documentation that these “non-resource” scenarios are different, maybe in you swagger docs.  
-    
+  
 **How many formats shall we support?**
 
 Respect the HTTP header content-type and accepts e.g. Accept: application/json but let the user override using dot notation e.g. GET /user/1234.dat or GET /user/1234.xml  
@@ -76,7 +76,7 @@ e.g.
 /search?q=xxx  
 /user?q=xxx  
 /location/1234/user=xxx – scoped  
-/search.xml?q=xxx – formatted  
+/search.xml?q=xxx – formatted
 
 _Tip2:_  
 Consolidate API under a single domain with segregation for environments following a standard pattern e.g.

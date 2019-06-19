@@ -5,23 +5,23 @@ tags: [biasing, algorithm, algorithm-design, article]
 comments: true
 subTitle: discrete representation of algorithm computational complexity
 date: "2018-10-20T00:00:00.000Z"
-path: "2018-10-20-asymtotic-notations"
+pathForPage: "2018-10-20-asymtotic-notations"
 ---
 
-The asymptotic notation is the mathematical representation to analyze algorithm and represent its time (and/or space) complexity as its relation to input size. It describes its behavioral characteristics as the input size for the algorithm increases. The algorithm complexity can also be measured by monitoring time and space usage during its actual physical execution. This approach is not ideal for the following reasons  
+The asymptotic notation is the mathematical representation to analyze algorithm and represent its time (and/or space) complexity as its relation to input size. It describes its behavioral characteristics as the input size for the algorithm increases. The algorithm complexity can also be measured by monitoring time and space usage during its actual physical execution. This approach is not ideal for the following reasons
 
 The accuracy and relativity (times obtained would only be relative to the machine they were computed on) of this method is bound to environmental variables such as computer hardware specifications, processing power, etc.  
-To conclude a general behavior we would have to execute it in several different scenarios.  
+To conclude a general behavior we would have to execute it in several different scenarios.
 
-Thus by representing an algorithm using asymptotic notation, it is much easier, faster and standard methodology to analyze and compare algorithms. For this post, we will restrict our discussion to time complexities {since the tremendous technological advancement has led to the cost of storage (persistent or ephemeral) as negligible}. In any problem domain, for a given algorithm f, with input size n we calculate some resultant runtime f(n). This results in a graph where the Y-axis is the runtime, X-axis is the input size, and plot points are the resultants of the amount of time for a given input size. We would mostly measure the worst-case scenario for any algorithm to compare different algorithms against the standard set of facts and dimentions.  
+Thus by representing an algorithm using asymptotic notation, it is much easier, faster and standard methodology to analyze and compare algorithms. For this post, we will restrict our discussion to time complexities {since the tremendous technological advancement has led to the cost of storage (persistent or ephemeral) as negligible}. In any problem domain, for a given algorithm f, with input size n we calculate some resultant runtime f(n). This results in a graph where the Y-axis is the runtime, X-axis is the input size, and plot points are the resultants of the amount of time for a given input size. We would mostly measure the worst-case scenario for any algorithm to compare different algorithms against the standard set of facts and dimentions.
 
-Before analysing the algorithms, we shall establish certain common complexity classes in which an algorithm can be classified i.e. g(n) viz. K (or constant), log n, n, n*log n, n^2, n^3..., 2^n, 3^n...n^n  
+Before analysing the algorithms, we shall establish certain common complexity classes in which an algorithm can be classified i.e. g(n) viz. K (or constant), log n, n, n\*log n, n^2, n^3..., 2^n, 3^n...n^n
 
-**Types of Asymptotic Notation**  
+**Types of Asymptotic Notation**
 
 **Big-O**  
 Big-O, commonly written as O, is an Asymptotic Notation for the worst case, or ceiling of growth for a given function. It provides us with an asymptotic upper bound for the growth rate of the runtime of an algorithm.  
-For e.g. f(n) is your algorithm runtime, and g(n) is an arbitrary time complexity you are trying to relate to your algorithm. f(n) is O(g(n)), if for some real constants c (c > 0) and n0, f(n) <= c g(n) for every input size n (n > n0)  
+For e.g. f(n) is your algorithm runtime, and g(n) is an arbitrary time complexity you are trying to relate to your algorithm. f(n) is O(g(n)), if for some real constants c (c > 0) and n0, f(n) <= c g(n) for every input size n (n > n0)
 
 `f(n) = O(g(n) For K and N0`  
 `if f(n) <= k * g(n) where n>=n0`  
@@ -35,12 +35,12 @@ For e.g. f(n) is your algorithm runtime, and g(n) is an arbitrary time complexit
 
 **Big-Omega**  
 Big-Omega, commonly written as &Omega;, is an Asymptotic Notation for the best case, or a floor growth rate for a given function. It provides us with an asymptotic lower bound for the growth rate of the runtime of an algorithm.  
-f(n) is &Omega;(g(n)), if for some real constants c (c > 0) and n0 (n0 > 0), f(n) is >= c g(n) for every input size n (n > n0).  
+f(n) is &Omega;(g(n)), if for some real constants c (c > 0) and n0 (n0 > 0), f(n) is >= c g(n) for every input size n (n > n0).
 
 `f(n) = BIG-OMEGA(g(n) For K and N0`  
 `if f(n) >= k * g(n) where n>=n0`  
 `e.g.`  
-`f(n) = 2n^2 + 3n + 1` 
+`f(n) = 2n^2 + 3n + 1`
 `f(n) = 2n^2 + 3n + 1 >= n^2 for n >= ?`  
 `f(n) <= k * g(n)`  
 `i.e. 1 * n^2`  
@@ -56,7 +56,7 @@ f(n) = &Theta;(g(n))
 `If f(n) = O(n2)`  
 `and f(n) = BIG-OMEGA(n^2)`  
 `also`  
-`f(n) = O(g(n)) and f(n) = BIG-OMEGA(g(n))` 
+`f(n) = O(g(n)) and f(n) = BIG-OMEGA(g(n))`
 `Then f(n) = THETA(g(n))`  
 `Thus f(n) = THETA(n^2)`
 
@@ -75,5 +75,5 @@ f(n) = Ω(g(n)), the bound f(n) >= g(n) holds for **some** constant c > 0, but i
 `f(n) = O(n^n)`
 `For lower bound = 1 * 1 * 1 * 1 * 1...1`
 `= k`
-`Thus f(n) =  BIG-OMEGA(1) or BIG-OMEGA(K)`  
-`since O and BIG-OMEGA for n! is not equal it does not have a tight bound` 
+`Thus f(n) = BIG-OMEGA(1) or BIG-OMEGA(K)`  
+`since O and BIG-OMEGA for n! is not equal it does not have a tight bound`

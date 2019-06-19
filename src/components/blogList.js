@@ -31,7 +31,7 @@ const IndexPageBlogList = () => (
                 date(formatString: "MMMM DD, YYYY")
                 year: date(formatString: "YYYY")
                 title
-                path
+                pathForPage
               }
             }
           }
@@ -54,12 +54,12 @@ const IndexPageBlogList = () => (
             {groupedPosts[ele].map(
               ({
                 node: {
-                  frontmatter: { title, path },
+                  frontmatter: { title, pathForPage },
                 },
               }) => {
                 return (
                   <HomeContentLinks>
-                    <a href="/" key={title}>
+                    <a href={pathForPage} key={title}>
                       {title}
                     </a>
                   </HomeContentLinks>

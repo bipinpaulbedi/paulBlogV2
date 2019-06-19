@@ -16,8 +16,9 @@ export default function BlogTemplate({ data }) {
 
   if (!markdownRemark) return null
   const {
-    frontmatter: { title, date, path },
+    frontmatter: { title, date, pathForPage },
     html,
+    timeToRead,
   } = markdownRemark
   const displayDate = distanceInWordsToNow(date, {
     addSuffix: true,
@@ -25,21 +26,24 @@ export default function BlogTemplate({ data }) {
   return (
     <div>
       <h1>
-        <a href={path}>{title}</a>
+        <a href={pathForPage}>{title}</a>
       </h1>
-      <DateDisplay>{displayDate}</DateDisplay>
+      <DateDisplay>
+        {displayDate} | {timeToRead} min read
+      </DateDisplay>
       <Post dangerouslySetInnerHTML={{ __html: html }} />
     </div>
   )
 }
 
 export const pageQuery = graphql`
-  query BlogTemplateQuery($path: String!) {
-    markdownRemark(frontmatter: { path: { eq: $path } }) {
+  query BlogTemplateQuery($pathForPage: String!) {
+    markdownRemark(frontmatter: { pathForPage: { eq: $pathForPage } }) {
       html
+      timeToRead
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
-        path
+        pathForPage
         title
       }
     }
