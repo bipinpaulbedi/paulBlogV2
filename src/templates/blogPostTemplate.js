@@ -4,11 +4,11 @@ import styled from "styled-components"
 import { distanceInWordsToNow } from "date-fns"
 
 const Post = styled.div`
-  text-align: left;
+  // text-align: left;
 `
 const DateDisplay = styled.h2`
-  font-size: 0.8em;
-  text-align: left;
+  // font-size: 0.8em;
+  // text-align: left;
 `
 
 export default function BlogTemplate({ data }) {
