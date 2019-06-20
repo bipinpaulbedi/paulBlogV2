@@ -7,8 +7,10 @@
   "dependencies": {
     "babel-plugin-styled-components": "^1.10.1",
     "date-fns": "^1.30.1",
+    "disqus-react": "^1.0.5",
     "gatsby": "^2.4.2",
     "gatsby-image": "^2.0.41",
+    "gatsby-plugin-feed": "^2.2.3",
     "gatsby-plugin-manifest": "^2.1.1",
     "gatsby-plugin-offline": "^2.1.0",
     "gatsby-plugin-react-helmet": "^3.0.12",
@@ -43,7 +45,7 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\"",
-    "clean": "rm -r docs",
+    "clean": "rm -fr .cache && rm -r docs",
     "postbuild": "mv public docs && cp src/CNAME docs/CNAME"
   },
   "repository": {

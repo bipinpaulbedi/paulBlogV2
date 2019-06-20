@@ -2,6 +2,7 @@ import React from "react"
 import { graphql } from "gatsby"
 import styled from "styled-components"
 import { distanceInWordsToNow } from "date-fns"
+import { DiscussionEmbed } from "disqus-react"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -39,6 +40,12 @@ export default function BlogTemplate({ data }) {
   const displayDate = distanceInWordsToNow(date, {
     addSuffix: true,
   })
+  const disqusShortname = "paul-blog"
+  const disqusConfig = {
+    url: "https://www.bipinpaulbedi.com/" + pathForPage,
+    identifier: pathForPage,
+    title: title,
+  }
   return (
     <Layout>
       <SEO title={title} keywords={tags} />
@@ -57,6 +64,7 @@ export default function BlogTemplate({ data }) {
         ))}
       </DateDisplay>
       <Post dangerouslySetInnerHTML={{ __html: html }} />
+      <DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
     </Layout>
   )
 }
