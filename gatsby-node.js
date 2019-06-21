@@ -1,4 +1,5 @@
 const path = require("path")
+const R = require("ramda")
 // Implement the Gatsby API “createPages”. This is called once the
 // data layer is bootstrapped to let plugins create pages from data.
 exports.createPages = ({ graphql, actions }) => {
@@ -6,6 +7,7 @@ exports.createPages = ({ graphql, actions }) => {
 
   return new Promise((resolve, reject) => {
     const blogPostTemplate = path.resolve(`src/templates/blogPostTemplate.js`)
+    const tagCloudListTemplate = path.resolve(`src/templates/tagCloudList.js`)
     // Query for markdown nodes to use in creating pages.
     resolve(
       graphql(
@@ -16,6 +18,8 @@ exports.createPages = ({ graphql, actions }) => {
                 node {
                   frontmatter {
                     pathForPage
+                    tags
+                    categories
                   }
                 }
               }
@@ -27,6 +31,19 @@ exports.createPages = ({ graphql, actions }) => {
           reject(result.errors)
         }
 
+        const tagAndCategories = []
+
+        result.data.allMarkdownRemark.edges.forEach(
+          ({
+            node: {
+              frontmatter: { categories, tags },
+            },
+          }) => {
+            tagAndCategories.push(categories)
+            tagAndCategories.push(...tags)
+          }
+        )
+
         // Create pages for each markdown file.
         result.data.allMarkdownRemark.edges.forEach(({ node }) => {
           createPage({
@@ -36,6 +53,18 @@ exports.createPages = ({ graphql, actions }) => {
             // as a GraphQL variable to query for data from the markdown file.
             context: {
               pathForPage: `${node.frontmatter.pathForPage}`,
+            },
+          })
+        })
+
+        R.uniq(tagAndCategories).forEach(t => {
+          createPage({
+            path: `/tagCloud/${t}`,
+            component: tagCloudListTemplate,
+            // In your blog post template's graphql query, you can use path
+            // as a GraphQL variable to query for data from the markdown file.
+            context: {
+              tag: t,
             },
           })
         })
