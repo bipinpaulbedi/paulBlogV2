@@ -3,12 +3,12 @@ import { StaticQuery, graphql } from "gatsby"
 import * as R from "ramda"
 import styled from "styled-components"
 
-const BlogGroup = styled.div`
+export const BlogGroup = styled.div`
   font-size: 2em;
   color: #bbb;
 `
 
-const HomeContentLinks = styled.p`
+export const HomeContentLinks = styled.p`
   font-size: 1.2em;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
