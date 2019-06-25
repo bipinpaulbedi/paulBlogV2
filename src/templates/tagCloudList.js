@@ -6,7 +6,7 @@ import styled from "styled-components"
 import Layout from "../components/layout"
 import { BlogGroup } from "../components/blogList"
 
-export const HomeContentLinks = styled.p`
+export const TagCloudLinks = styled.p`
   font-size: 1.2em;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
@@ -44,11 +44,11 @@ export default function TagCloudTemplate({
                 },
               }) => {
                 return (
-                  <HomeContentLinks>
+                  <TagCloudLinks>
                     <a href={`/${pathForPage}`} key={title}>
                       {title}
                     </a>
-                  </HomeContentLinks>
+                  </TagCloudLinks>
                 )
               }
             )}

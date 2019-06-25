@@ -3,6 +3,8 @@ import React from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import styled from "styled-components"
+import { StaticQuery, graphql } from "gatsby"
+import Img from "gatsby-image"
 
 const AboutContent = styled.p`
    {
@@ -10,10 +12,28 @@ const AboutContent = styled.p`
   }
 `
 
+const Me = () => (
+  <StaticQuery
+    query={graphql`
+      query {
+        placeholderImage: file(relativePath: { eq: "me.jpg" }) {
+          childImageSharp {
+            fixed(width: 256, height: 256) {
+              ...GatsbyImageSharpFixed
+            }
+          }
+        }
+      }
+    `}
+    render={data => <Img fixed={data.placeholderImage.childImageSharp.fixed} />}
+  />
+)
+
 const AboutPage = () => (
   <Layout>
     <SEO title="Home" keywords={[`bipin paul bedi`]} />
     <h1>About</h1>
+    <Me />
     <AboutContent>
       Hi, welcome to my personal website, software engineering blog and dumping
       ground for my learnings. I'm bipin, a software developer, entrepreneur and
@@ -62,16 +82,14 @@ const AboutPage = () => (
       offer a wide range of services which include, but are not limited to the
       ones listed below. If you would like to work together then please do not
       hesitate to contact me to discuss further details.
-      <ul>
-        <li>Software Development</li>
-        <li>Software Architecture</li>
-        <li>Mobile development</li>
-        <li>Game development</li>
-        <li>DevOps</li>
-        <li>Security</li>
-        <li>Training</li>
-        <li>Machine Learning & Data Science</li>
-      </ul>
+      <p>Software Development</p>
+      <p>Software Architecture</p>
+      <p>Mobile development</p>
+      <p>Game development</p>
+      <p>DevOps</p>
+      <p>Security</p>
+      <p>Training</p>
+      <p>Machine Learning & Data Science</p>
     </AboutContent>
     <h1>Open Source Development</h1>
     <AboutContent>
