@@ -1,7 +1,7 @@
 ---
 title: Developers guide to designing REST endpoints
 categories: design-patterns
-tags: [api, design, design-patterns, article]
+tags: [api, design, design-patterns]
 comments: true
 subTitle: coding bluprint for pragmatic rest api developers
 date: "2018-10-10T00:00:00.000Z"
@@ -61,8 +61,8 @@ Some developers advocate as to keep the version information in headers. But API 
 
 In certain cases, API calls that sends a response which is not a resource e.g. Calculate, Translate are not uncommon depending on the domain.
 In these cases, Use verbs not nouns e.g. /convert?from=USD&to=AUD&amount=100  
-Make it clear in your API documentation that these “non-resource” scenarios are different, maybe in you swagger docs.  
-  
+Make it clear in your API documentation that these “non-resource” scenarios are different, maybe in you swagger docs.
+
 **How many formats shall we support?**
 
 Respect the HTTP header content-type and accepts e.g. Accept: application/json but let the user override using dot notation e.g. GET /user/1234.dat or GET /user/1234.xml  

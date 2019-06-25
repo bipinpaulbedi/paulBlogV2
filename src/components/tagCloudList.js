@@ -3,9 +3,16 @@ import { StaticQuery, graphql } from "gatsby"
 import * as R from "ramda"
 import styled from "styled-components"
 
-const Tag = styled.a`
-  margin: 0.3em;
-`
+const Tag = styled.a(props => ({
+  margin: "0.3em",
+  span: {
+    color: "#333",
+    fontSize: Math.max(20, props.sz * 8),
+    ":hover": {
+      color: "#ff5252",
+    },
+  },
+}))
 
 const TagCloudList = () => (
   <StaticQuery
@@ -36,8 +43,13 @@ const TagCloudList = () => (
 
       return Object.keys(groupedCloud).map(ele => {
         return (
-          <Tag key={ele} href={`/tagCloud/${ele}`}>
-            {ele} ({groupedCloud[ele].length})
+          <Tag
+            key={ele}
+            href={`/tagCloud/${ele}`}
+            sz={groupedCloud[ele].length}
+          >
+            <span>{ele}</span>
+            {` {${groupedCloud[ele].length}}`}
           </Tag>
         )
       })

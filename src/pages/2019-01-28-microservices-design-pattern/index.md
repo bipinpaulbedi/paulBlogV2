@@ -1,7 +1,7 @@
 ---
 title: 9 laws of architecting microservices
 categories: design-patterns
-tags: [microservices, design-patterns, technology, article]
+tags: [microservices, design-patterns, technology]
 comments: true
 subTitle: architects black book for microservices implementation
 date: "2019-01-28T00:00:00.000Z"

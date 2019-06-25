@@ -1,7 +1,7 @@
 ---
 title: ELI5 - Asymptotic computational complexity simplified
 categories: algorithm-design
-tags: [biasing, algorithm, algorithm-design, article]
+tags: [biasing, algorithm, algorithm-design]
 comments: true
 subTitle: discrete representation of algorithm computational complexity
 date: "2018-10-20T00:00:00.000Z"

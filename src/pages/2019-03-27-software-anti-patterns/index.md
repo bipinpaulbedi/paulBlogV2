@@ -1,7 +1,7 @@
 ---
 title: 57 counterproductive software design practices - anti patterns.
 categories: design-patterns
-tags: [microservices, design-patterns, technology, article, anti-patterns]
+tags: [microservices, design-patterns, technology, anti-patterns]
 comments: true
 subTitle: deciding what not to do is as important as deciding what to do
 date: "2019-03-27T00:00:00.000Z"

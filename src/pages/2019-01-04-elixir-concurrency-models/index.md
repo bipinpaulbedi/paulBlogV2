@@ -9,7 +9,6 @@ tags:
     design-patterns,
     functional-programming,
     technology,
-    article,
   ]
 comments: true
 subTitle: concurrent and/or parallel processing model

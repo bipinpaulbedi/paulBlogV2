@@ -1,9 +1,22 @@
 import React from "react"
 import { graphql } from "gatsby"
 import * as R from "ramda"
+import styled from "styled-components"
 
 import Layout from "../components/layout"
-import { BlogGroup, HomeContentLinks } from "../components/blogList"
+import { BlogGroup } from "../components/blogList"
+
+export const HomeContentLinks = styled.p`
+  font-size: 1.2em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  a {
+    color: #333;
+    :hover {
+      color: #ff5252;
+    }
+  }
+`
 
 export default function TagCloudTemplate({
   data: {

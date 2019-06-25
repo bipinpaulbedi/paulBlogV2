@@ -25,7 +25,7 @@ const typography = new Typography({
     body: {
       margin: "auto",
       maxWidth: "700px",
-      width: "90%",
+      width: "99%",
       textAlign: "center",
     },
     code: {
