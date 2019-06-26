@@ -45,7 +45,7 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\"",
-    "clean": "rm -fr .cache && rm -r docs",
+    "clean": "rm -fr .cache && rm -rf docs && rm -rf public",
     "postbuild": "mv public docs && cp src/CNAME docs/CNAME"
   },
   "repository": {

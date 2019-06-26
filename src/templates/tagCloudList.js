@@ -5,7 +5,6 @@ import styled from "styled-components"
 import SEO from "../components/seo"
 
 import Layout from "../components/layout"
-import { BlogGroup } from "../components/blogList"
 
 export const TagCloudLinks = styled.p`
   font-size: 1.2em;
@@ -17,6 +16,11 @@ export const TagCloudLinks = styled.p`
       color: #ff5252;
     }
   }
+`
+
+export const TagCloudGroup = styled.div`
+  font-size: 2em;
+  color: #bbb;
 `
 
 export default function TagCloudTemplate({
@@ -34,11 +38,11 @@ export default function TagCloudTemplate({
 
   return (
     <Layout>
-      <SEO title="Tag" keywords={[`bipin paul bedi`]} />
+      <SEO title="Tag Explorer" keywords={[`bipin paul bedi`]} />
       {elems.map(ele => {
         return (
           <React.Fragment>
-            <BlogGroup>{ele}</BlogGroup>
+            <TagCloudGroup>{ele}</TagCloudGroup>
             {groupedPosts[ele].map(
               ({
                 node: {
