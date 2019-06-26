@@ -2,6 +2,7 @@ import React from "react"
 import { graphql } from "gatsby"
 import * as R from "ramda"
 import styled from "styled-components"
+import SEO from "../components/seo"
 
 import Layout from "../components/layout"
 import { BlogGroup } from "../components/blogList"
@@ -33,6 +34,7 @@ export default function TagCloudTemplate({
 
   return (
     <Layout>
+      <SEO title="Tag" keywords={[`bipin paul bedi`]} />
       {elems.map(ele => {
         return (
           <React.Fragment>

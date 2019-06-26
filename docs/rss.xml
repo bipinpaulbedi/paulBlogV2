@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[paul blog]]></title><description><![CDATA[learning adventures]]></description><link>https://www.bipinpaulbedi.com/</link><generator>RSS for Node</generator><lastBuildDate>Wed, 26 Jun 2019 01:17:07 GMT</lastBuildDate><item><title><![CDATA[57 counterproductive software design practices - anti patterns.]]></title><description><![CDATA[anti-patternImage Source : Photo by Donnie Rosie on UnsplashSoftware designers talk about design patterns or the best practices for…]]></description><link>https://www.bipinpaulbedi.com/2019-03-27-software-anti-patterns</link><guid isPermaLink="false">https://www.bipinpaulbedi.com/2019-03-27-software-anti-patterns</guid><pubDate>Wed, 27 Mar 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/2019-03-27-software-anti-patterns/anti-pattern-patch.jpg&quot; alt=&quot;anti-pattern&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Image Source : &lt;a href=&quot;https://unsplash.com/@drosie&quot;&gt;Photo by Donnie Rosie on Unsplash&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Software designers talk about design patterns or the best practices for application designing. The choice is between which mistake is easier to correct: under-doing it or overdoing it.&lt;/p&gt;
+&lt;p&gt;We keep on adding ingredients to the curry and food is left with no taste. Let’s explore some anti-patterns and explore the pitfalls of Software designing.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Organisational anti-patterns&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Analysis paralysis - Devoting disproportionate effort to the analysis phase of the project.&lt;/li&gt;
+&lt;li&gt;Cash cow - A profitable legacy product that often leads to complacency about new product.&lt;/li&gt;
+&lt;li&gt;Design by committee - The result of having many contributors to a design - but no unifying vision.&lt;/li&gt;
+&lt;li&gt;Moral hazard - Insulating a decision-maker from the consequences of his or her decision.&lt;/li&gt;
+&lt;li&gt;Stovepipe or Silos - A structure that supports mostly up-down flow of data but inhibits cross organisational communication.&lt;/li&gt;
+&lt;li&gt;Vendor lock-in - Making a system extensively dependent on an external supplied component.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Design anti-patterns&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Abstraction inversion - Not exposing implemented functionality required by user, so that they reimplement it using higher level functions.&lt;/li&gt;
+&lt;li&gt;Ambiguous viewpoint - Presenting a model (OOAD) without specifying its viewpoint.&lt;/li&gt;
+&lt;li&gt;Big ball of mud - A system with no recognisable structure.&lt;/li&gt;
+&lt;li&gt;Database as IPC - Using DB as message queue for inter-process communication where a more lightweight mechanism would be suitable.&lt;/li&gt;
+&lt;li&gt;Gold plating - Continuing to work on a project well past the point at which extra effort is not adding value.&lt;/li&gt;
+&lt;li&gt;Inner - platform effect - A software so customisable as to become poor replica of software development platform.&lt;/li&gt;
+&lt;li&gt;Input kludge - Failing to specify and implement handling of possibly invalid inputs.&lt;/li&gt;
+&lt;li&gt;Interface bloat - making an interface so powerful that it is extremely difficult to implement.&lt;/li&gt;
+&lt;li&gt;Magic push button - Coding implementation logic directly within interface code, without using abstraction.&lt;/li&gt;
+&lt;li&gt;Race hazard - Failing to see consequences of different orders of events.&lt;/li&gt;
+&lt;li&gt;Stovepipe system - A barely maintainable assemblage of ill-related components.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;OOD anti-patterns&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Anaemic domain model - Use of domain model without business knowledge.&lt;/li&gt;
+&lt;li&gt;Base bean - Inheriting functionality from utility class rather than delegating to it.&lt;/li&gt;
+&lt;li&gt;Call super - Requiring subclasses to call a superclass’s overridden method.&lt;/li&gt;
+&lt;li&gt;Circle ellipse problem - Sub typing variable-types on the bases of value-subtypes.&lt;/li&gt;
+&lt;li&gt;Circular dependency - Introducing unnecessary direct or indirect mutual dependencies between objects.&lt;/li&gt;
+&lt;li&gt;Constant interface - using interface to define constants.&lt;/li&gt;
+&lt;li&gt;God object - Concentrating too many functionalities in a single part of design.&lt;/li&gt;
+&lt;li&gt;Object cesspool - Reusing objects whose state does not confirm to the contract of reuse.&lt;/li&gt;
+&lt;li&gt;Object orgy - Failing to properly encapsulate objects permitting unrestricted access to their internals.&lt;/li&gt;
+&lt;li&gt;Poltergeists - Objects whose sole purpose is to pass information to another object.&lt;/li&gt;
+&lt;li&gt;Sequential coupling - A class that requires its method to be called in a particular order.&lt;/li&gt;
+&lt;li&gt;Yo-yo problem - A structure that is hard to understand due to excessive fragmentation.&lt;/li&gt;
+&lt;li&gt;Dependency hell - Problem with versions of required product.&lt;/li&gt;
+&lt;li&gt;DLL hell - Inadequate management of dynamic linked libraries.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Programming anti-patterns&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Accidental complexity - Introducing unnecessary complexity into a solution.&lt;/li&gt;
+&lt;li&gt;Action at distance - Unexpected interaction between widely separated parts of system.&lt;/li&gt;
+&lt;li&gt;Blind faith - Lack of checking of correctness of a bug fix or result of a subroutine.&lt;/li&gt;
+&lt;li&gt;Boat anchor - Retaining a part of a system that is no longer has any use.&lt;/li&gt;
+&lt;li&gt;Busy spin - Consuming CPU while waiting for something to happen, usually by repeated checking rather than message passing.&lt;/li&gt;
+&lt;li&gt;Caching failure - Forgetting to reset an error flag when an error has been corrected.&lt;/li&gt;
+&lt;li&gt;Cargo cult programming - Using patterns and methods without understanding why.&lt;/li&gt;
+&lt;li&gt;Coding by exception - Adding a new code to handle each special case as it is recognised.&lt;/li&gt;
+&lt;li&gt;Error hiding - Catching an error message before it can be shown to the user, either showing nothing or showing a meaningless message.&lt;/li&gt;
+&lt;li&gt;Hard code - Embedding assumption about environment of a system in its implementation.&lt;/li&gt;
+&lt;li&gt;Lava flow - Retaining undesirable code because removing it is too expensive or has unpredictable consequences.&lt;/li&gt;
+&lt;li&gt;Loop switch sequence - Encoding a set of sequential steps using a switch within a loop.&lt;/li&gt;
+&lt;li&gt;Magic numbers - Including unexplained numbers in algorithm.&lt;/li&gt;
+&lt;li&gt;Magic strings - Including literal strings in code, for comparison, as event types etc.&lt;/li&gt;
+&lt;li&gt;Soft code - Storing business logic in configuration files rather than source code.&lt;/li&gt;
+&lt;li&gt;Spaghetti code - Programs whose structure is barely comprehensible.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Methodological anti-patterns&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Copy-paste programming. Copying (modifying) and pasting existing code rather than implementing generic solution.&lt;/li&gt;
+&lt;li&gt;Golden hammering - Assuming that a favourite solution is universally applicable.&lt;/li&gt;
+&lt;li&gt;Improbability factor - Assuming that it is improbably that a known error will occur.&lt;/li&gt;
+&lt;li&gt;NHI syndrome - The tendency towards reinventing the wheel, assuming it does not exist here before.&lt;/li&gt;
+&lt;li&gt;Premature optimisation - Coding early on for a perceived efficiency, sacrificing good design, maintainability, and sometimes even real world efficiency.&lt;/li&gt;
+&lt;li&gt;Programming by permutation - Trying to approach a solution by successively modifying the code to see if it works.&lt;/li&gt;
+&lt;li&gt;Reinventing the wheel - Failing to adopt an existing, adequate solution.&lt;/li&gt;
+&lt;li&gt;Reinventing the square wheel - Failing to adopt an existing solution and instead adopting a custom solution which performs much worse than an existing one.&lt;/li&gt;
+&lt;li&gt;Silver bullet - Assuming that a favourite technical solution can solve a larger process or problem.&lt;/li&gt;
+&lt;li&gt;Tester driven development - Projects in which new requirements are specified in bug reports.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Phew… don’t stop here, explore more on internet as there can be more pitfalls that you might be already digging. Please share your findings in the comments section below.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[9 laws of architecting microservices]]></title><description><![CDATA[microservicesMicroservice has been a game changer in software development in the last few years, yet it remains a grey area when it comes to…]]></description><link>https://www.bipinpaulbedi.com/2019-01-28-microservices-design-pattern</link><guid isPermaLink="false">https://www.bipinpaulbedi.com/2019-01-28-microservices-design-pattern</guid><pubDate>Mon, 28 Jan 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/2019-01-28-microservices-design-pattern/microservices.png&quot; alt=&quot;microservices&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Microservice has been a game changer in software development in the last few years, yet it remains a grey area when it comes to making decision around maintainability and implementation of microservices. The evangelists behind microservice approach have built the case around speed, scalability and cohesion stating in that a microservice Change is easy, Units are small, scalability is semi-infinite. So what is Microservice architecture? Microservices — also known as the microservice architecture — is an architectural style that structures an application as a collection of loosely coupled services, which implement business capabilities.&lt;/p&gt;
+&lt;p&gt;We will discuss and summarise some of the implementation factors that have a big impact on indicators of success in your project/software delivery viz:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Law of repository management&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;One of the most active moving parts of microservices is code repositories. They can be categorised into two broader areas.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Mono Repository i.e. keep all the services in the same repository&lt;/li&gt;
+&lt;li&gt;Multiple Repositories i.e. keep separate repositories for each of the services&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Majority of microservices evolve over a period of time and it has been observed that based on team and organisation structures derives the strategy adopted for code management. Usually, it naturally tends towards multiple repository pattern due to diverse practices followed in an organisation among various units. This results in poor code re-usability but also provides clear boundaries of ownership. The problem of re-usability can be resolved by implementing a re-usable package, e.g. nuGet for C#, Packet for F# or npm for node etc. As the number of services grows it becomes difficult to debug and cross teams development. Moreover, overall platform knowledge becomes fragmented and abstract due to focused development teams.&lt;/p&gt;
+&lt;p&gt;For a larger project, it is recommended to use Mono repository with clear segregation of domain functionality and shared core re-usability. This brings standardisation in development style and practices. It provides better integration capabilities and debugging at the cost of a larger code base. Most programming framework provides a modular development approach where we can leverage best of both worlds of mono repo for development and multi repo for build and release.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Law of separation of concern&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The most common dilemma that microservice brings into an architects plate is regarding granularity of functionality. As per recommended practice, the domain driven development leads to correct size of bounded context which is articulated based on various business activities and influence. Usually, in the real world, it has been noticed that business units are generated based on software boundaries. Nevertheless using microservices does not imply less code, rather it focuses on maintainability and scalability. If you are planning to create a microservice for each function then you are definitely planning for a disaster. Though segregation shall be based on the business domain but under special scenarios it is absolutely acceptable to deviate and create a separate service based on technical feature, e.g. email service, notification service etc.&lt;/p&gt;
+&lt;p&gt;The mutual independence across multiple microservices is the core principle behind this architecture. Each service shall ideally implement its own data persistence and caching capabilities. The owner service defines the strategy to create, manipulate and consume service. The external services should not be entertaining data access directly but shall only pass through owner service interfaces only.&lt;/p&gt;
+&lt;p&gt;The cross-cutting concerns such as security shall be abstracted to gateways such as azure API management, &lt;a href=&quot;http://threemammals.com/ocelot&quot;&gt;ocelot&lt;/a&gt;. In certain scenarios, an aggregator microservice might be required from the client or as a server wrapper to avoid multiple dependency hell.&lt;/p&gt;
+&lt;p&gt;For a more complex front end, a small microservice shall be created for each unit of a user interface to process data and serve it to the client. This pattern is usually known as UI microservice or backend for front end design.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Law of eventual consistency&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Since each service is responsible for consistency and reliability of its data, the cross domain data passing is performed via message passing. It does not result in ACID [atomic, consistent, isolated, durable] principles as these updates are not happening in the transaction. This is can be solved using two-phase commit but will eventually result in high coupling and the core principle of microservices are violated. The microservice architecture is an advocate of CAP theorem i.e. consistent, available and partition tolerant. To achieve the desired benefits of microservices the eventual consistency is implemented via&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Event sourcing - We can query an application&apos;s state to find out the current state of the world, and this answers many questions. However, there are times when we don&apos;t just want to see where we are, we also want to know how we got there. Event Sourcing ensures that all changes to application state are stored as a sequence of events. Not just can we query these events, we can also use the event log to reconstruct past states, and as a foundation to automatically adjust the state to cope with retroactive changes. e.g. database event logs, similar implementation can be adopted for business events and each microservices can perform action independently to bring the system to the desired state eventually.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;CQRS - CQRS stands for Command Query Responsibility Segregation. It&apos;s a pattern that I first heard described by Greg Young. At its heart is the notion that you can use a different model to update information than the model you use to read information. The microservice can process data and keep up to date information for serving Realtime need but can update the core system from the log. e.g. a notification for e-commerce order placement can be served separately to update in ERP system.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Message/Service Bus - For event-based message passing in microservice either a direct call to the service can be initiated or a message broker such as service bus can be implemented for asynchronous communication maintaining the high demand services to scale to serve client needs and keeping background jobs instance low.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The above eventual consistency also require coordination of execution. The solution is defined as a saga. Implement each business transaction that spans multiple services as a saga. A saga is a sequence of local transactions. Each local transaction updates the database and publishes a message or event to trigger the next local transaction in the saga. If a local transaction fails because it violates a business rule then the saga executes a series of compensating transactions that undo the changes that were made by the preceding local transactions.&lt;/p&gt;
+&lt;p&gt;There are two ways of coordination sagas:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Choreography - each local transaction publishes domain events that trigger local transactions in other services&lt;/li&gt;
+&lt;li&gt;Orchestration - an orchestrator (object) tells the participants what local transactions to execute&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Law of scalable deployment&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Easy deployment and scalability are the key features that bought microservices into the architects toolbox. There are various containerisation frameworks/application that can compile into the deployable image that is ready to scale. Application containerisation is an OS-level virtualisation method which is used to deploy and run distributed applications without launching an entire virtual machine (VM) for each app. Multiple isolated applications or services run on a single host and access the same OS kernel. Application containers include the runtime components -- such as files, environment variables and libraries -- necessary to run the desired software. Application containers consume fewer resources than a comparable deployment on virtual machines because containers share resources without a full operating system to underpin each app.&lt;/p&gt;
+&lt;p&gt;The most common app containerisation technology is Docker, specifically the open source Docker Engine and container based on universal runtime runC. The main competitive offering is CoreOS&apos; rkt container engine that relies on the App Container (appc) spec as its open, standard container format, but it also can execute Docker container images.&lt;/p&gt;
+&lt;p&gt;Though containerisation is not required to develop and run microservices, but these two concepts have been tied together as complementary services to generate maximum benefit. The recommended practice is to deploy services using orchestrator such as Azure Kubernetes services, AWS Fargate where that can create an instance for public or private registry such as docker hub, Azure container service etc. You can deploy multiple containers on one host or have one host per container.&lt;/p&gt;
+&lt;p&gt;Now Azure app service has the capability to run docker image but usually with orchestrators in place, a cluster such as a the docker swarm, Azure service fabric, Azure service fabric mesh is usually used as deployment engine.&lt;/p&gt;
+&lt;p&gt;Since this dynamic addition or removal of images may result in multiple end-points thus a service discover provider is required to let the traffic get routed to healthy end points only.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Law of greenfield initiation&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;When working on a greenfield project; multiple design patterns help us structure the system. But following key principles are must have for robust system viz:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Resilience - When a system is under faulty state due to certain unexpected events, the microservice shall be monitored correctly and a new backup service shall immediately become active to minimise the loss of data. If the service or backup is not available then alternate application to keep track of operation shall cover during the downtime. Failure in one service shall not affect other.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Failure - This is an extension of the above-mentioned principle. If a service fails then the dependent service shall have some mechanism to track status and reduce resource wastage. The service might fail temporarily due to some network issue, thus a retry policy shall be applied. A more advanced mechanism would be implementing circuit breaker where after a certain retry it stops sending more message to failed microservice and only passes certain requests in between to check for resume the status.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Availability - Apart from expected and unexpected coding fault recovery, the ability to maintain uptime is the core requirement. Thus having geo-distributed redundant implementation shall be a part of the implementation strategy. For high availability, a blue-green pattern makes sure zero downtime during maintenance and upgrades.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Dev-ops - With the highly scalable environment the automated deployment and ability to version control the services leads to a stable solution. The service discover shall consider service versioning before routing requests.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Scalability - Using ready to deploy lightweight images as container shall allow individual service to scale to meet the growing demand.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Law of brownfield transition&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;When transitioning from a brownfield project, more effort is required to make sure the stability of the system is not affected. In these scenarios, the Strangler pattern comes to the rescue. The Strangler pattern is based on an analogy to a vine that strangles a tree that it’s wrapped around with. This solution works well with web applications, where a call goes back and forth, and for each URI call, a service can be broken into different domains and hosted as separate services. The idea is to do one domain at a time. This creates two separate applications that live side by side in the same URI space. Eventually, the newly refactored application “strangles” or replaces the original application until finally, you can shut off the monolithic application.&lt;/p&gt;
+&lt;p&gt;Apart from strangler, an anti-corruption layer implements a facade between new and legacy applications, to ensure that the design of a new application is not limited by dependencies on legacy systems.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Law of implementation patterns&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/2019-01-28-microservices-design-pattern/microservice2.png&quot; alt=&quot;microservices&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Image Source : &lt;a href=&quot;https://azure.microsoft.com/en-au/blog/design-patterns-for-microservices/&quot;&gt;Microsoft blog&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The eight core widely used microservices are that every architect shall know for high-performance systems includes&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Ambassador can be used to offload common client connectivity tasks such as monitoring, logging, routing, and security (such as TLS) in a language agnostic way.&lt;/li&gt;
+&lt;li&gt;Anti-corruption layer implements a facade between new and legacy applications, to ensure that the design of a new application is not limited by dependencies on legacy systems.&lt;/li&gt;
+&lt;li&gt;Backends for Frontends creates separate backend services for different types of clients, such as desktop and mobile. That way, a single backend service doesn’t need to handle the conflicting requirements of various client types. This pattern can help keep each microservice simple, by separating client-specific concerns.&lt;/li&gt;
+&lt;li&gt;Bulkhead isolates critical resources, such as connection pool, memory, and CPU, for each workload or service. By using bulkheads, a single workload (or service) can’t consume all of the resources, starving others. This pattern increases the resiliency of the system by preventing cascading failures caused by one service.&lt;/li&gt;
+&lt;li&gt;Gateway Aggregation aggregates requests to multiple individual microservices into a single request, reducing chattiness between consumers and services.&lt;/li&gt;
+&lt;li&gt;Gateway Offloading enables each microservice to offload shared service functionality, such as the use of SSL certificates, to an API gateway.&lt;/li&gt;
+&lt;li&gt;Gateway Routing routes requests to multiple microservices using a single endpoint, so that consumers don&apos;t need to manage many separate endpoints.&lt;/li&gt;
+&lt;li&gt;Sidecar deploys helper components of an application as a separate container or process to provide isolation and encapsulation.&lt;/li&gt;
+&lt;li&gt;Strangler supports incremental migration by gradually replacing specific pieces of functionality with new services.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Law of communication&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;For making maintainable microservices it is important to abstract the dependencies. Ambassador pattern can be used to offload common client connectivity tasks such as monitoring, logging, routing, and security (such as TLS) in a language agnostic way.&lt;/p&gt;
+&lt;p&gt;Another important communication aspect to consider is sync vs async inter-service communication. Having a sync request-response is an anti-pattern and causes bottleneck. The recommended approach is implementing async communication using message broker, hooks or observers&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Law of Monitoring&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;With the implementation of multiple microservices, traditional methods of monitoring will not provide required enterprise scale monitoring and health check. The five key principles of monitoring that shall be included in your strategy are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Monitor containers and what’s inside them.&lt;/li&gt;
+&lt;li&gt;Alert on service performance, not container performance.&lt;/li&gt;
+&lt;li&gt;Monitor services that are elastic and multi-location.&lt;/li&gt;
+&lt;li&gt;Monitor APIs.&lt;/li&gt;
+&lt;li&gt;Map your monitoring to your organisational structure.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;By practising the above laws an architect can create a robust solution, using microservices.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[phoenix/elixir - concurrency actor model with 'let it crash' philosophy]]></title><description><![CDATA[A concurrent program has multiple logical threads of control. These threads may or may not run in parallel. A parallel program potentially…]]></description><link>https://www.bipinpaulbedi.com/2019-01-04-elixir-concurrency-models</link><guid isPermaLink="false">https://www.bipinpaulbedi.com/2019-01-04-elixir-concurrency-models</guid><pubDate>Fri, 04 Jan 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;A concurrent program has multiple logical threads of control. These threads may or may not run in parallel. A parallel program potentially runs more quickly than a sequential program by executing different parts of the computation simultaneously (in parallel). It may or may not have more than one logical thread of control. An alternative way of thinking about this is that concurrency is an aspect of the problem domain—your program needs to handle multiple simultaneous (or near-simultaneous) events. Parallelism, by contrast, is an aspect of the solution domain—you want to make your program faster by processing different portions of the problem in parallel.&lt;/p&gt;
+&lt;p&gt;Functional programming avoids the problems associated with a shared mutable state by avoiding mutable state. Actor programming, by contrast, retains mutable state but avoids sharing it. An actor is like an object in an object-oriented (OO) program—it encapsulates state and communicates with other actors by exchanging messages. The difference is that actors run concurrently with each other and, unlike OO-style message passing (which is really just calling a method), actors really communicate by sending messages to each other.&lt;/p&gt;
+&lt;p&gt;Certainly, there are some concurrent programs that will always be non-deterministic. And this is unavoidable—some problems require solutions that are intrinsically dependent on the details of timing. But it’s not the case that all parallel programs are necessarily non-deterministic. The value of the sum of the numbers between 0 and 10,000 won’t change just because we add those numbers together in parallel instead of sequentially&lt;/p&gt;
+&lt;p&gt;Microsoft &lt;a href=&quot;https://dotnet.github.io/orleans/&quot;&gt;Orleans&lt;/a&gt; is .net implementation of Actor Model but we will focus on programming language which was built with a focus on concurrent execution. Elixir/Erlang: Erlang is a programming language used to build massively scalable soft real-time systems with requirements on high availability. Some of its uses are in telecoms, banking, e-commerce, computer telephony and instant messaging. Erlang&apos;s runtime system has built-in support for concurrency, distribution and fault tolerance.
+OTP is a set of Erlang libraries and design principles providing middle-ware to develop these systems. It includes its own distributed database, applications to interface towards other languages, debugging and release handling tools. Erlang runs on VM called BEAM which is essentially a &lt;a href=&quot;https://en.wikipedia.org/wiki/Virtual_machine&quot;&gt;process virtual machine&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;In Erlang, and therefore Elixir, an actor is called a process. In most environments, a process is a heavyweight entity that consumes lots of resources and is expensive to create. An Elixir process, by contrast, is very lightweight—lighter weight even than most systems’ threads, both in terms of resource consumption and startup cost. Elixir programs typically create thousands of processes without problems and don’t normally need to resort to the equivalent of thread pools&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Elixir actor by example&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Elixir actors communicate via message passing using mailboxes, which are queues by data structure. For our example, we will create a md5 hash generator which based on a string return a md5 value of a string. If the value is already exiting it will not recompute to save CPU resource but send it from in-memory cache.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;defmodule HashIt do
+  def loop do
+    receive do
+      {:compute, value} -&gt; IO.puts(&quot;#{value}&quot;)
+    end
+    loop
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;pid = spawn(&amp;#x26;HashIt.loop/0)
+send(pid, {:compute, &quot;bipin&quot;})
+sleep(1000)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This function implements an infinite loop by calling itself recursively. The receive block waits for a message and then uses pattern matching to work out how to handle it. Elixir implements tail-call elimination. Tail-call elimination, as its name suggests, replaces a recursive call with a simple jump if the last thing the function does is call itself, thus infinite recursive call o loop function will not result in stack overflow.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;defmodule HashIt do
+  def loop do
+    receive do
+      {:compute, value} -&gt; IO.puts(:crypto.hash(:md5, value) |&gt; Base.encode16())
+      {:shutdown} -&gt; -&gt; exit(:normal)
+    end
+    loop
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;receive do
+  {:EXIT, ^pid, reason} -&gt; IO.puts(&quot;HasIt has exited (#{reason})&quot;)
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Process.flag(:trap_exit, true)
+pid = spawn_link(&amp;#x26;HashIt.loop/0)
+send(pid, {:compute, &quot;bipin&quot;})
+send(pid, {:shutdown}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Adding state to the actor&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We will add a variable to store all values sent and their computed hash&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;defmodule HashIt do
+  def loop(strg) do
+    receive do
+      {:compute, value} -&gt;
+        hashValue = :crypto.hash(:md5 , value) |&gt; Base.encode16()
+        updatedStrg = strg.put(strg, value, hashValue)
+        IO.puts(hashValue)
+        loop(updatedStrg)
+    end
+    loop
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here Strg is an elixir Map and we can start the process by using&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pid = spawn(HashIt, :loop, [%{}])&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;or we can define methods to start, compute also provide it a name instead of using pid by registering it.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;defmodule HashIt do
+  def start(name, strg, cryptoType) do
+    pid = spawn(__MODULE__, :loop, [strg, cryptoType])
+    Process.register(pid, name)
+    pid
+  end
+  def compute(name, value) do
+    ref = make_ref()
+    send(name, {:compute, value, self(), ref})
+    receive do
+      {:ok, ^ref, reply} -&gt; reply
+    end
+  end
+  def loop(strg, cryptoType) do
+    receive do
+      {:compute, value, sender, ref} -&gt;
+        hashValue = :crypto.hash(cryptoType , value) |&gt; Base.encode16()
+        updatedStrg = Map.put_new(strg, value, hashValue)
+        send(sender, {:ok, ref, hashValue})
+        loop(updatedStrg, cryptoType)
+    end
+    loop
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The program can be started via start method and uses pseudo-variable &lt;strong&gt;MODULE&lt;/strong&gt;, which evaluates to the name of the current module. The Process.register registers the pid as name :hashit. Moreover, instead of printing the hash value it now returns it to the sender, which helps in bi-directional communication. The carot ^ symbol in {:ok, ^ref, reply} denotes we want to match the value rather than binding it. The &lt;a href=&quot;https://elixir-lang.org/getting-started/pattern-matching.html&quot;&gt;pattern matching&lt;/a&gt; in elixir is used to match inside a data structure. Effectively we can now execute the HashIt module via&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;:hashItMD5 |&gt; HashIt.start([%{}, :md5])
+:hashItMD5 |&gt; HashIt.compute(&quot;bipin&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Adding check and compute logic&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Adding the return value to check in the cache before recomputing above module can be refactored as&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;defmodule HashIt do
+  def start(name, strg, cryptoType) do
+    pid = spawn(__MODULE__, :loop, [strg, cryptoType])
+    Process.register(pid, name)
+    pid
+  end
+  def compute(name, value) do
+    ref = make_ref()
+    send(name, {:compute, value, self(), ref})
+    receive do
+      {:ok, ^ref, reply} -&gt; reply
+    end
+  end
+  def loop(strg, cryptoType) do
+    receive do
+      {:compute, value, sender, ref} -&gt;
+        result = Map.fetch(strg, value)
+        case result do
+          {:ok, val} -&gt; send(sender, {:ok, ref, val})
+            loop(strg, cryptoType)
+          {:error, _reason} -&gt;
+            hashValue = :crypto.hash(cryptoType , value) |&gt; Base.encode16()
+            updatedStrg = Map.put_new(strg, value, hashValue)
+            send(sender, {:ok, ref, hashValue})
+            loop(updatedStrg, cryptoType)
+        end
+    end
+    loop
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Making it fault tolerant&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Thus various processes can be started in parallel for different crypto compute example MD5, SHA128, SHA256. Using the above process mechanism we can create multiple processes for different or same task resulting in both concurrent and parallel deterministic outputs. But this architecture does not provide fault tolerance. What if there is an error and it is aborted abruptly? Elixir provides a mechanism to link it to a process which is bi-directional.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;:hashItMD5 |&gt; HashIt.start([%{}, :md5])
+:hashItSHA256 |&gt; HashIt.start([%{}, :sha256])
+:hashItMD5 |&gt; Process.link(:hashItSHA256)
+:hashItMD5 |&gt; exit(:forced_kill)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Since we are using spawn in our hash, We can also use spawn_link method to link process instead of process.link(). Please note links created are bi directional. and calling abnormal exit on :hashItMD5 will also set :hashItSHA256 to nil&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Process.info(:hashItMD5, :status)&lt;/code&gt;
+&lt;small&gt;nil&lt;/small&gt;
+&lt;code&gt;Process.info(:hashItSHA256, :status)&lt;/code&gt;
+&lt;small&gt;nil&lt;/small&gt;&lt;/p&gt;
+&lt;p&gt;but normal exit will keep the linked process active, viz:
+&lt;code&gt;:hashItMD5 |&gt; exit(:normal)&lt;/code&gt;
+&lt;code&gt;Process.info(:hashItMD5, :status)&lt;/code&gt;
+&lt;small&gt;nil&lt;/small&gt;
+&lt;code&gt;Process.info(:hashItSHA256, :status)&lt;/code&gt;
+&lt;small&gt;{:status, :waiting}&lt;/small&gt;&lt;/p&gt;
+&lt;p&gt;This implies we can set the system trap to capture other processes exit, when can be utilized to create supervisor and restart the system if the process crashes. We can set Process.flag(:trap_exit, true) to capture the exit of linked process and take appropriate action. In our example of HashIt, a supervisor can be created as:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;defmodule HashItSupervisor do
+  def start do
+    spawn(__MODULE__, :loop_system,[])
+  end
+  def loop_system do
+    Process.flag(:trap_exit, true)
+    loop
+  end
+  def loop do
+    pid = HashIt.start(%{}, :md5)
+    // instead of using spawn please change it to spawn_link in HashIt module
+    receive do
+      {:EXIT, ^pid, :normal} -&gt; IO.puts(&quot;Hash It exited normally&quot;)
+        :ok
+      {:EXIT, ^pid, reason} -&gt;
+        IO.puts(&quot;Hash It failed with reason #{inspect reason}...restarting&quot;)
+        loop`
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;HashItSupervisor.start
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If the HashIt system now crashes it is captured by HashItSupervisor and is restarted. If the two processes are dependent on each other and can result in deadlock or infinite waiting because of crashing of sender the receiver can be guarded using timeout clause in receive do loop by using after clause. example:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;receive do
+  {:ok, ^ref, value} -&gt; IO.puts(value)
+  after 1000 -&gt; nil
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Scaling to multiple nodes/computers&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The actor programming naturally supports an approach to writing fault-tolerant code that leverages this observation: the error-kernel pattern. In the elixir system, the kernel is the root supervisor which can start other supervisors or workers. When we create an elixir virtual machine we create a node we can create nodes multiple nodes on the same system or on network of computer by naming them using --name or --sname option. To make multiple nodes part of the same cluster it must use same --cookie name argument. This results in running your system across multiple systems. To multiple connect nodes we can use connect function&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;iex(node1@192.168.0.10)1&gt; Node.self&lt;/code&gt;
+&lt;small&gt;:&quot;node1@192.168.0.10&quot;&lt;/small&gt;
+&lt;code&gt;iex(node1@192.168.0.10)2&gt; Node.list&lt;/code&gt;
+&lt;small&gt;[]&lt;/small&gt;
+&lt;code&gt;iex(node1@192.168.0.10)3&gt; Node.connect(:&quot;node2@192.168.0.20&quot;)&lt;/code&gt;
+&lt;small&gt;true&lt;/small&gt;
+&lt;code&gt;iex(node1@192.168.0.10)4&gt; Node.list&lt;/code&gt;
+&lt;small&gt;[:&quot;node2@192.168.0.20&quot;]&lt;/small&gt;&lt;/p&gt;
+&lt;p&gt;Now use Node.Spwan to start worker or supervisors and use :global.register_name() instead of Process.register() to make names cluster global.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Important notes&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;For this explanatory purpose, we used dynamic atom naming above. However, naming dynamic processes with atoms is a terrible idea! If we use atoms, we would need to convert the name (often received from an external client) to atoms, and we should never convert user input to atoms. This is because atoms are not garbage collected. Once an atom is created, it is never reclaimed. Generating atoms from user input would mean the user can inject enough different names to exhaust our system memory!&lt;/p&gt;
+&lt;p&gt;In practice, it is more likely you will reach the Erlang VM limit for the maximum number of atoms before you run out of memory, which will bring your system down regardless. Moreover, supervisor model used above can result in inconsistent naming convention across various modules and libraries. Thus elixir provides a standard protocol for defining, starting and maintaining workers using efficient bucketed methodology using &lt;a href=&quot;https://elixir-lang.org/getting-started/mix-otp/genserver.html&quot;&gt;GenServer&lt;/a&gt;, providing standard call, cast and info method implementation for various operation.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[ELI5 - Asymptotic computational complexity simplified]]></title><description><![CDATA[The asymptotic notation is the mathematical representation to analyze algorithm and represent its time (and/or space) complexity as its…]]></description><link>https://www.bipinpaulbedi.com/2018-10-20-asymtotic-notations</link><guid isPermaLink="false">https://www.bipinpaulbedi.com/2018-10-20-asymtotic-notations</guid><pubDate>Sat, 20 Oct 2018 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;The asymptotic notation is the mathematical representation to analyze algorithm and represent its time (and/or space) complexity as its relation to input size. It describes its behavioral characteristics as the input size for the algorithm increases. The algorithm complexity can also be measured by monitoring time and space usage during its actual physical execution. This approach is not ideal for the following reasons&lt;/p&gt;
+&lt;p&gt;The accuracy and relativity (times obtained would only be relative to the machine they were computed on) of this method is bound to environmental variables such as computer hardware specifications, processing power, etc.&lt;br&gt;
+To conclude a general behavior we would have to execute it in several different scenarios.&lt;/p&gt;
+&lt;p&gt;Thus by representing an algorithm using asymptotic notation, it is much easier, faster and standard methodology to analyze and compare algorithms. For this post, we will restrict our discussion to time complexities {since the tremendous technological advancement has led to the cost of storage (persistent or ephemeral) as negligible}. In any problem domain, for a given algorithm f, with input size n we calculate some resultant runtime f(n). This results in a graph where the Y-axis is the runtime, X-axis is the input size, and plot points are the resultants of the amount of time for a given input size. We would mostly measure the worst-case scenario for any algorithm to compare different algorithms against the standard set of facts and dimentions.&lt;/p&gt;
+&lt;p&gt;Before analysing the algorithms, we shall establish certain common complexity classes in which an algorithm can be classified i.e. g(n) viz. K (or constant), log n, n, n*log n, n^2, n^3..., 2^n, 3^n...n^n&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Types of Asymptotic Notation&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Big-O&lt;/strong&gt;&lt;br&gt;
+Big-O, commonly written as O, is an Asymptotic Notation for the worst case, or ceiling of growth for a given function. It provides us with an asymptotic upper bound for the growth rate of the runtime of an algorithm.&lt;br&gt;
+For e.g. f(n) is your algorithm runtime, and g(n) is an arbitrary time complexity you are trying to relate to your algorithm. f(n) is O(g(n)), if for some real constants c (c &gt; 0) and n0, f(n) &amp;#x3C;= c g(n) for every input size n (n &gt; n0)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;f(n) = O(g(n) For K and N0
+if f(n) &amp;#x3C;= k * g(n) where n&gt;=n0
+e.g.
+f(n) = 2n^2 + 3n + 1
+since 2n^2 + 3n^2 + n2 = 6n^2
+f(n) = 2n^2 + 3n + 1 &amp;#x3C;= 6n^2 for n &gt;= ?
+f(n) &amp;#x3C;= k * g(n)
+i.e. 6 * n^2
+Thus f(n) = O(n^2)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Big-Omega&lt;/strong&gt;&lt;br&gt;
+Big-Omega, commonly written as Ω, is an Asymptotic Notation for the best case, or a floor growth rate for a given function. It provides us with an asymptotic lower bound for the growth rate of the runtime of an algorithm.&lt;br&gt;
+f(n) is Ω(g(n)), if for some real constants c (c &gt; 0) and n0 (n0 &gt; 0), f(n) is &gt;= c g(n) for every input size n (n &gt; n0).&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;f(n) = BIG-OMEGA(g(n) For K and N0
+if f(n) &gt;= k * g(n) where n&gt;=n0
+e.g.
+f(n) = 2n^2 + 3n + 1
+f(n) = 2n^2 + 3n + 1 &gt;= n^2 for n &gt;= ?
+f(n) &amp;#x3C;= k * g(n)
+i.e. 1 * n^2
+or k * g(n)
+Thus f(n) = BIG-OMEGA(n^2)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Theta&lt;/strong&gt;&lt;br&gt;
+Theta, commonly written as Θ, is an Asymptotic Notation to denote the asymptotically tight bound on the growth rate of the runtime of an algorithm.&lt;br&gt;
+i.e. if O(g(n)) = Ω(g(n))&lt;br&gt;
+Then&lt;br&gt;
+f(n) = Θ(g(n))&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;If f(n) = O(n2)
+and f(n) = BIG-OMEGA(n^2)
+also
+f(n) = O(g(n)) and f(n) = BIG-OMEGA(g(n))
+Then f(n) = THETA(g(n))
+Thus f(n) = THETA(n^2)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Note
+The asymptotic growth rates provided by big-O and big-omega notation may or may not be asymptotically tight. Thus we use small-o and small-omega notation to denote bounds that are not asymptotically tight.&lt;/p&gt;
+&lt;p&gt;The main difference is that in f(n) = O(g(n)), the bound f(n) &amp;#x3C;= g(n) holds for &lt;strong&gt;some&lt;/strong&gt; constant c &gt; 0, but in f(n) = o(g(n)), the bound f(n) &amp;#x3C; c g(n) holds for &lt;strong&gt;all&lt;/strong&gt; constants c &gt; 0.
+Similarly
+f(n) = Ω(g(n)), the bound f(n) &gt;= g(n) holds for &lt;strong&gt;some&lt;/strong&gt; constant c &gt; 0, but in f(n) = ω(g(n)), the bound f(n) &gt; c g(n) holds for &lt;strong&gt;all&lt;/strong&gt; constants c &gt; 0.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Calculating for n!
+if f(n) = n!
+f(n) = n * (n-1) * (n-2)... 2 * 1
+For upper bound = n * n * n * n * n * n * n
+i.e. f(n) = n! &amp;#x3C;= n^n for n&gt;=?
+f(n) = O(n^n)
+For lower bound = 1 * 1 * 1 * 1 * 1...1
+= k
+Thus f(n) = BIG-OMEGA(1) or BIG-OMEGA(K)
+since O and BIG-OMEGA for n! is not equal it does not have a tight bound
+&lt;/code&gt;&lt;/pre&gt;</content:encoded></item><item><title><![CDATA[L1 & L2 model regularizations techniques]]></title><description><![CDATA[The most difficult and time consuming activity in any machine learning project is modelling the domain. The objective of training the model…]]></description><link>https://www.bipinpaulbedi.com/2018-10-12-regularization-for-machine-learning-models</link><guid isPermaLink="false">https://www.bipinpaulbedi.com/2018-10-12-regularization-for-machine-learning-models</guid><pubDate>Fri, 12 Oct 2018 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;The most difficult and time consuming activity in any machine learning project is modelling the domain. The objective of training the model is to reduce the cost function, which can have direct dependency on feature selection and their representation. The results you achieve is a function of the model features and the weights being selected. Even your framing of the problem and measures you’re using to estimate accuracy play a part. Your results are dependent on many inter-dependent properties&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Feature engineering is the process of transforming raw data into features that better represent the underlying problem to the predictive models, resulting in improved model accuracy on unseen data.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;You can see the dependencies in this definition:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The performance measures you’ve chosen (RMSE? AUC?)&lt;/li&gt;
+&lt;li&gt;The framing of the problem (classification? regression?)&lt;/li&gt;
+&lt;li&gt;The predictive models you’re using (SVM?)&lt;/li&gt;
+&lt;li&gt;The raw data you have selected and prepared (samples? formatting? cleaning?)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In order to create less complex model when you have a large number of features in your dataset, some of the Regularization techniques are used to address over-fitting. In general, due to the addition of regularization term, the values of weight matrices decrease because it assumes that a neural network with smaller weight matrices leads to simpler models.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Cost function = Loss + Regularization term&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;L1 and L2 are the most common types of regularization. The key difference between these two is the penalty term&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;L1 regularization&lt;/strong&gt;&lt;br&gt;
+A regression model that uses L1 regularization technique is called Lasso Regression&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Cost function = Loss + Λ/2m * σ|weight|&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Here, lambda is the regularization parameter. It is the hyperparameter whose value is optimized for better results. if lambda is zero then you can imagine we get back original loss. However, if lambda is very large then it will add too much weight and it will lead to under-fitting.&lt;br&gt;
+In L1 regularization, we penalize the absolute value of the weights. The weights may be reduced to zero here. Hence, it is very useful when we are trying to compress our model. Otherwise, we usually prefer L2 over it.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;L2 regularization&lt;/strong&gt;&lt;br&gt;
+A regression model model which uses L2 is called Ridge Regression.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Cost function = Loss + Λ/2m * σ|weight|^2&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;It adds “squared magnitude” of coefficient as penalty term to the loss function. L2 regularization is also known as weight decay as it forces the weights to decay towards zero (but not exactly zero).&lt;/p&gt;
+&lt;p&gt;The key difference between these techniques is that in L1 the less important feature’s coefficient are reduced to zero thus, removing some feature altogether. So, this works well for feature selection in case we have a huge number of features.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Developers guide to designing REST endpoints]]></title><description><![CDATA[As per Wikipedia, Design thinking is the cognitive process from which design concepts (e.g. ideas for products) emerge. Design thinking is…]]></description><link>https://www.bipinpaulbedi.com/2018-10-10-coding-blueprint-for-pragmatic-rest-api-developers</link><guid isPermaLink="false">https://www.bipinpaulbedi.com/2018-10-10-coding-blueprint-for-pragmatic-rest-api-developers</guid><pubDate>Wed, 10 Oct 2018 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;As per Wikipedia, Design thinking is the cognitive process from which design concepts (e.g. ideas for products) emerge. Design thinking is related to, but is different from problem-solving, decision-making, creativity, sketching and prototyping. During design thinking, the designer&apos;s attention oscillates between their understanding of a problem context and their ideas for a solution. New solution ideas lead to a deeper understanding of the problematic context, which in turn triggers more solution ideas.&lt;/p&gt;
+&lt;p&gt;When your focus acts like a pendulum between problem context and the creative solution then you are bound to wear multiple hats. The irony as the developer when designing API is that your clients are other developers.
+Over the past decade after working under some fine mentors the summary of the learning can be stated as “Think of developing API endpoints for a command line interface, possibly it will result in self-understandable, complete solution you are seeking”.&lt;/p&gt;
+&lt;p&gt;This post is inspired by eBook published by APIgee highlighting the best practiced for REST design. As an API designer, I have gone through some challenges myself, viz.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What should be my base URL?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Keep it short and simple. Try to use nouns and keep verbs out of your base URL. To smartly cover all possible scenario use HTTP verb standard.
+Eg.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Resource&lt;/th&gt;
+&lt;th align=&quot;center&quot;&gt;POST&lt;/th&gt;
+&lt;th align=&quot;center&quot;&gt;GET&lt;/th&gt;
+&lt;th align=&quot;center&quot;&gt;PUT&lt;/th&gt;
+&lt;th align=&quot;center&quot;&gt;DELETE&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;create&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;read&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;update&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;delete&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/users&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;create a new user&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;list users&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;bulk update users&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;delete all users&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/users/1234&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;error&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;show user&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;update if exists or error&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;delete user&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;The point is that developers probably don&apos;t need the chart to understand how the API behaves. They can experiment with and learn the API without the documentation.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Shall I use plurals or singular nouns?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The recommended practice is to use plurals since the first API being tested by developers is most probably GET and GET /users to list all users make natural sense. Irrespective whatever you choose, be consistent to avoid confusing your API consumers. Moreover, concrete names are better than abstract ones. Eg. Having an endpoint like /blogs or /videos over abstract names like /items or /contents can help the consumer to identify resources more conveniently.&lt;br&gt;
+You also want to expose a manageable number of resources. Aim for concrete naming and keep the number of resources between 12 and 24.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How should the relations and associations be exposed in API?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Resource always have relationships with other resources. oData standard makes it easier for developers to navigate resource and its association using metadata, it can be also let to exposing your information schema.&lt;br&gt;
+The recommended practise is to follow ‘resource/identity/resource’ model eg. /users/1234/department. It&apos;s not uncommon to see people string these together making a URL 5 or 6 levels deep. Remember that once you have the primary key for one level, you usually don&apos;t need to include the levels above because you&apos;ve already got your specific object.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How do we handle the complexity of pagination, partial response, filters etc.?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Make it simple for developers to use the base URL by putting optional states and attributes behind the query string question mark. E.g. GET /users?name=xxx&lt;br&gt;
+For pagination request for limit and offset eg. GET /users?limit=50&amp;#x26;offset=100 additionally, request fields to make it precise. Avoid using special characters in the query string. A good API always have defaults for pagination.&lt;br&gt;
+Good example /GET users?fields=name,gender&lt;br&gt;
+Bad example /Get users:(name,gender)&lt;br&gt;
+We also suggest including metadata with each response that is paginated that indicated to the developer the total number of records available. Use JSON-LD/HAL/Collection+JSON/SIREN/JSONAPI.ORG specifications as your starting point and don’t forget to be creative.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What is the recommended practice for error handling?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The developers learn to write code through error and trial, most important they rely on error messages during critical times for troubleshooting and resolving issues.&lt;br&gt;
+As the best practice always serve the error messages with correct HTTP status codes, also include a verbose error message with as many details as possible. We highly recommend that you add a link in your description to add more information.&lt;br&gt;
+In certain circumstances the framework used by developer intercepts the message and follows the default routine, thus developer may have no opportunity to inform his user appropriately. Thus, if you can provide a flag to suppress the status code and result in HTTP - 200 OK with actual status code and the message passed along with the payload.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Shall we version control the API?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Never release an API without a version and make the version mandatory. Keep the version naming simple and maintain compatibility with at least one version backwards for minimum 6-12 months.&lt;br&gt;
+Some developers advocate as to keep the version information in headers. But API can have breaking changes, thus being verbose and explicitly specifying version numbers in URL can help developers identify gaps early.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What about responses that don’t involve resources?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;In certain cases, API calls that sends a response which is not a resource e.g. Calculate, Translate are not uncommon depending on the domain.
+In these cases, Use verbs not nouns e.g. /convert?from=USD&amp;#x26;to=AUD&amp;#x26;amount=100&lt;br&gt;
+Make it clear in your API documentation that these “non-resource” scenarios are different, maybe in you swagger docs.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How many formats shall we support?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Respect the HTTP header content-type and accepts e.g. Accept: application/json but let the user override using dot notation e.g. GET /user/1234.dat or GET /user/1234.xml&lt;br&gt;
+If the default form is JSON, in the response properties try using camelCase for attributes as it is easier for the front-end developer to parse into objects with standard JavaScript conventions.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Any other tips and tricks?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Tip1:&lt;/em&gt;&lt;br&gt;
+A simple can be verb based resourceful API but for complex scenarios use google model
+e.g.&lt;br&gt;
+/search?q=xxx&lt;br&gt;
+/user?q=xxx&lt;br&gt;
+/location/1234/user=xxx – scoped&lt;br&gt;
+/search.xml?q=xxx – formatted&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Tip2:&lt;/em&gt;&lt;br&gt;
+Consolidate API under a single domain with segregation for environments following a standard pattern e.g.
+api.xxx.com
+uat-api.xxx.com
+dev-api.xxx.com&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Tip3:&lt;/em&gt;&lt;br&gt;
+Use standard known authentication/authorization methodologies e.g. oAuth2.0 etc&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Tip4:&lt;/em&gt;&lt;br&gt;
+Try to complement your API with SDK&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Tip5:&lt;/em&gt;&lt;br&gt;
+Using POST to emulate PUT, DELETE, PATCH. If your development platform or firewall rules prevent you from calling HTTP methods like PUT, PATCH or DELETE, use the X-HTTP-Method-Override header. Pass the method you want to use in the X-HTTP-Method-Override header and make your call using the POST method&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What API design pattern is an ideal choice in most cases?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The architect must carefully evaluate available options and what suits the business domain and skill set of available developers in terms of project support and maintainability. But in most cases, an API Façade with mediate to complement can cover the majority of cases. This is covered in detail in another post.&lt;/p&gt;</content:encoded></item></channel></rss>
