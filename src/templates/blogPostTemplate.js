@@ -56,10 +56,10 @@ export default function BlogTemplate({ data }) {
       <DateDisplay>
         {displayDate} <Seperator>|</Seperator> {timeToRead} min read{" "}
         <Seperator>|</Seperator>{" "}
-        <a href={`/tagCloud/${categories}`}>{`#${categories}`}</a>{" "}
+        <a href={`/tagcloud/${categories}`}>{`#${categories}`}</a>{" "}
         {tags.map(ele => (
           <React.Fragment>
-            <a href={`/tagCloud/${ele}`}>{`#${ele}`}</a>{" "}
+            <a href={`/tagcloud/${ele}`}>{`#${ele}`}</a>{" "}
           </React.Fragment>
         ))}
       </DateDisplay>

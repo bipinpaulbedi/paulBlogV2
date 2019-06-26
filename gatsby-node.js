@@ -59,7 +59,7 @@ exports.createPages = ({ graphql, actions }) => {
 
         R.uniq(tagAndCategories).forEach(t => {
           createPage({
-            path: `/tagCloud/${t}`,
+            path: `/tagcloud/${t}`,
             component: tagCloudListTemplate,
             // In your blog post template's graphql query, you can use path
             // as a GraphQL variable to query for data from the markdown file.

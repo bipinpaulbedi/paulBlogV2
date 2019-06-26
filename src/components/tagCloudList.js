@@ -45,7 +45,7 @@ const TagCloudList = () => (
         return (
           <Tag
             key={ele}
-            href={`/tagCloud/${ele}`}
+            href={`/tagcloud/${ele}`}
             sz={groupedCloud[ele].length}
           >
             <span>{ele}</span>
