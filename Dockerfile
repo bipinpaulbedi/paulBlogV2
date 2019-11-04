@@ -5,4 +5,4 @@ WORKDIR /app
 COPY ./package.json .
 RUN yarn install && yarn cache clean
 COPY . .
-CMD ["yarn", "develop", "-H", "0.0.0.0" ]
+CMD ["yarn", "develop", "-H", "0.0.0.0", "-p", "12800" ]
