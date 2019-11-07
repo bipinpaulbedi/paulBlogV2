@@ -1,4 +1,131 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[paul blog]]></title><description><![CDATA[learning adventures]]></description><link>https://www.bipinpaulbedi.com/</link><generator>RSS for Node</generator><lastBuildDate>Wed, 26 Jun 2019 06:31:29 GMT</lastBuildDate><item><title><![CDATA[57 counterproductive software design practices - anti patterns.]]></title><description><![CDATA[anti-patternImage Source : Photo by Donnie Rosie on UnsplashSoftware designers talk about design patterns or the best practices for…]]></description><link>https://www.bipinpaulbedi.com/2019-03-27-software-anti-patterns</link><guid isPermaLink="false">https://www.bipinpaulbedi.com/2019-03-27-software-anti-patterns</guid><pubDate>Wed, 27 Mar 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/2019-03-27-software-anti-patterns/anti-pattern-patch.jpg&quot; alt=&quot;anti-pattern&quot;&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Paul Blog's RSS Feed]]></title><description><![CDATA[learning adventures]]></description><link>https://www.bipinpaulbedi.com</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 07 Nov 2019 19:03:32 GMT</lastBuildDate><item><title><![CDATA[functional design patterns using rust]]></title><description><![CDATA[functional-programming Wikipedia states - In software engineering, a software design pattern is a general, reusable solution to a commonly…]]></description><link>https://www.bipinpaulbedi.com2019-11-07-functional-design-patterns-using-rust</link><guid isPermaLink="false">https://www.bipinpaulbedi.com2019-11-07-functional-design-patterns-using-rust</guid><pubDate>Thu, 07 Nov 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/2019-11-07-functional-design-patterns-using-rust/functional-programming.jpg&quot; alt=&quot;functional-programming&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Wikipedia states - In software engineering, a software design pattern is a general, reusable solution to a commonly occurring problem within a given context in software design. It is not a finished design that can be transformed directly into source or machine code. It is a description or template for how to solve a problem that can be used in many different situations. Design patterns are formalized best practices that the programmer can use to solve common problems when designing an application or system.  &lt;/p&gt;
+&lt;p&gt;Design patterns may be viewed as a structured approach to computer programming intermediate between the levels of a programming paradigm and a concrete algorithm.  &lt;/p&gt;
+&lt;p&gt;If you are keen on functional programming, I would recommend reading &lt;a href=&quot;https://github.com/hmemcpy/milewski-ctfp-pdf/&quot;&gt;Category Theory for Programmers&lt;/a&gt;, and in this post, we will be exploring some common functional programming design patterns&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Functor Pattern&lt;/strong&gt;  &lt;/p&gt;
+&lt;p&gt;A functor is approximately the inverse of a function. A function defines a transformation, accepts data, and returns the result of the transformation. A functor defines data, accepts a function, and returns the result of the transformation.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;fn main() {
+   let m: Vec&amp;#x3C;u64&gt; = vec![1, 2, 3];
+   let n: Vec&amp;#x3C;u64&gt; = m.iter().map(|x| { x*x }).collect();
+   println!(&quot;{:?}&quot;, m);
+   println!(&quot;{:?}&quot;, n);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;here &apos;map&apos; is a functor. Thus a functor lifts or upgrades a function from one that cannot operate on an effect&lt;sup&gt;1&lt;/sup&gt; to one that can work on a single effect&lt;sup&gt;1&lt;/sup&gt;, leaving the effect&lt;sup&gt;1&lt;/sup&gt; intact after the function is done.  &lt;/p&gt;
+&lt;p&gt;effect&lt;sup&gt;1&lt;/sup&gt;: ability to bring about a result i.e. list, array, tuple, struct, record, object, future, promise, function, tree, hashmap, dictionary etc.  &lt;/p&gt;
+&lt;p&gt;I think of a functor as being a component of the command pattern, which also involves other infrastructure such as the invoker and command recipients.&lt;/p&gt;
+&lt;p&gt;Trait:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;pub trait Functor: Generic1 {
+    fn fmap&amp;#x3C;Y, F: Fn(Self::Type) -&gt; Y&gt;(self, f: F) -&gt; Self::Type 
+        where Self: Rebind1&amp;#x3C;Y&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Applicatives Pattern&lt;/strong&gt;  &lt;/p&gt;
+&lt;p&gt;Applicative functors allow us to deal with function of two arguments and two functors, by mapping curried function onto functor and then applying it to second functor&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;let v1 = vec![1,2,3]; 
+let v2 = vec![4,5]; 
+let result: Vec = v1.iter().map(|x||y| x*y)).apply(v2.iter()).collect(); 
+let expect = vec![4, 5, 8, 10, 12, 15]; 
+assert_eq!(expect, result);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Based on above example a product of each element of V1 with V2 is &lt;strong&gt;applied&lt;/strong&gt;, creating six elements in result vector. Then the following trait can form the foundation of applicative functors.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;pub trait Applicative: Functor {
+    fn apply&amp;#x3C;X, U&gt;(self, x: X) -&gt; Applied&amp;#x3C;Self, X&gt; 
+        where X: Applicative, Self: Sized { ... }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This pattern isn’t practically used in rust very often because this pattern is not considered idiomatic rust.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Monad Pattern&lt;/strong&gt;  &lt;/p&gt;
+&lt;p&gt;There is a natural hierarchy of types: any Monad is an Applicative, and any Applicative is a Functor.  &lt;/p&gt;
+&lt;p&gt;This allows structuring programs generically while automating away the boilerplate code needed by the program logic. Monads achieve this by providing their own data type, which represents a specific form of computation, along with one procedure to wrap values of any basic type within the monad (yielding a monadic value) and another to compose functions that output monadic values (called monadic functions). Thus a monad defines return and bind operations for a type. The return operation is like a constructor to make the monad. The bind operation incorporates new information and returns a new monad. &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Monad::return(value)  //We start with a new Monad&amp;#x3C;X&gt;
+        .bind(|x| x+x)  //We take a step into Monad&amp;#x3C;X+1&gt;
+        .bind(|y| y*y); //Similarly we get to Monad&amp;#x3C;X+2&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Monadic bind operations are also polymorphic, meaning they should permit returning monads of different types from the current monad. A monad can hide state inside itself, which becomes essentially a larger, more complex function than what the programmer interacts with. One concrete example of side-effect hiding is the concept of a logger.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;use std::fmt::{Debug};
+
+struct UniversalLogger&amp;#x3C;T&gt;(T);
+
+impl&amp;#x3C;T&gt; UniversalLogger&amp;#x3C;T&gt; {
+   fn return(t: T) -&gt; UniversalLogger&amp;#x3C;T&gt;
+   where T: Debug {
+      println!(&quot;{:?}&quot;, t);
+      UniversalLogger(t)
+   }
+   fn bind&amp;#x3C;R,F&gt;(&amp;#x26;self, f: F) -&gt; UniversalLogger&amp;#x3C;R&gt;
+   where F: FnOnce(&amp;#x26;T) -&gt; R,
+   R: Debug {
+      let r = f(&amp;#x26;self.0);
+      println!(&quot;{:?}&quot;, r);
+      UniversalLogger(r)
+   }
+}
+
+fn main() {
+   UniversalLogger::return(27111985)
+            .bind(|x| x+x)
+            .bind(|y| y*y)
+            .bind(|z| format!(&quot;{}{}{}&quot;, z, z, z));
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The monad pattern is also very useful for chaining together code that can&apos;t be written in a normal code block e.g. the lazy monad pattern such as an asynchronous web server.&lt;/p&gt;
+&lt;p&gt;Trait:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;pub trait Monad: Functor {
+    fn unit(value: Self::Type) -&gt; Self;
+    fn bind&amp;#x3C;U, F: Fn(Self::Type) -&gt; Self::Type&gt;(self, f: F) 
+        -&gt; Self::Type where Self: Rebind1&amp;#x3C;U&gt;;
+
+    fn join&amp;#x3C;U&gt;(self) -&gt; Self::Type 
+        where Self::Type: Equals&amp;#x3C;Self::Type&gt;, 
+                Self: Rebind1&amp;#x3C;U&gt; + Sized { ... }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Combination Pattern&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;A combinator is a function that takes other functions as arguments and returns a new function. A simple example of a combinator would be the composition operator, which chains two functions together:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;fn compose&amp;#x3C;A,B,C,F,G&gt;(f: F, g: G) -&gt; impl Fn(A) -&gt; C
+   where F: &apos;static + Fn(A) -&gt; B,
+         G: &apos;static + Fn(B) -&gt; C {
+   move |x| g(f(x))
+}
+
+fn main() {
+   let fa = |x| x+1;
+   let fb = |y| y*2;
+   let fc = |z| z/3;
+   let g = compose(compose(fa,fb),fc);
+   println!(&quot;g(1) = {}&quot;, g(1));
+   println!(&quot;g(12) = {}&quot;, g(12));
+   println!(&quot;g(123) = {}&quot;, g(123));
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Lazy Eval Pattern&lt;/strong&gt;  &lt;/p&gt;
+&lt;p&gt;A code blocks are always evaluated eagerly. If you want to define code that will be evaluated later or in pieces, the lazy eval pattern is very convenient. Lazy evaluation is a term used to describe code or data that is not evaluated until it is referenced. This is contrary to the typical eager evaluation of Rust code that will execute immediately regardless of context.&lt;/p&gt;
+&lt;p&gt;Iterators are lazy. They don&apos;t do anything until you collect or otherwise iterate over them&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Side Note&lt;/em&gt;&lt;br&gt;
+&lt;em&gt;The last lazy pattern that we will introduce is functional reactive programming, FRP for short. There are entire programming languages, such as Elm, based on this concept. Popular web UI frameworks, such as React or Angular, are also influenced by FRP concepts.&lt;/em&gt;
+&lt;em&gt;The FRP concept is an extension of the side-effect/state monad example. Event handling, state transitions, and side-effects can be turned into units of reactive programming. This is an advance concept and shall be covered in a separate post later.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;If you have more functional knowledge to share, please scribe in the comments section below.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[clean architecture in functional programming]]></title><description><![CDATA[functional-programming Image Source : Photo by Shahadat Shemul on Unsplash All the design principles and design patterns that we’ve…]]></description><link>https://www.bipinpaulbedi.com2019-11-05-clean-architecture-in-functional-programming</link><guid isPermaLink="false">https://www.bipinpaulbedi.com2019-11-05-clean-architecture-in-functional-programming</guid><pubDate>Tue, 05 Nov 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/2019-11-05-clean-architecture-in-functional-programming/functional-programming.jpg&quot; alt=&quot;functional-programming&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Image Source : &lt;a href=&quot;https://unsplash.com/@shemul&quot;&gt;Photo by Shahadat Shemul on Unsplash&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;All the design principles and design patterns that we’ve identified over the last several decades apply only to OO; and that Functional Programming reduces them all down to: functions. Quoting from clean coders blog look at the comparison chart below;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/2019-11-05-clean-architecture-in-functional-programming/oovsfp.jpg&quot; alt=&quot;oo-vs-fp&quot;&gt;&lt;/p&gt;
+&lt;p&gt;In object-oriented architecture, we often struggle towards the ideal of the Ports and Adapters architecture, although we often call it something else: layered architecture, onion architecture, hexagonal architecture, and so on. The goal is to decouple the business logic from technical implementation details, so that we can vary each independently.  &lt;/p&gt;
+&lt;p&gt;This creates value because it enables us adapt to changing business or technology.  &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/2019-11-05-clean-architecture-in-functional-programming/CleanArchitecture.jpg&quot; alt=&quot;clean-architecture&quot;&gt;
+Comparing to Clean Coder Clean Architecture : &lt;a href=&quot;https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html&quot;&gt;https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Entities ~ Domain  &lt;/li&gt;
+&lt;li&gt;Use Cases ~ Ports  &lt;/li&gt;
+&lt;li&gt;Controllers/Gateways/Presenters ~ Adaptors  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Thus a functional programming architecture can be modelled in three elements viz:&lt;br&gt;
+&lt;strong&gt;Domain:&lt;/strong&gt; the core, the functionality that models the domain behaviours and data.&lt;br&gt;
+&lt;strong&gt;Ports:&lt;/strong&gt; entry (or exit) points to the domain. It shall be composed by only pure functions. It will provide the predictability and testability we need for the most important part of the system and we can reason about it more easily due to its deterministic nature.&lt;br&gt;
+&lt;strong&gt;Adaptors:&lt;/strong&gt; shall contain all the functions that will access the external systems, i.e. that will perform side effects. So the impure (non-deterministic) functions will be enclosed in the boundaries of the application.  &lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Side tip for code reviewers&lt;/em&gt;&lt;br&gt;
+&lt;em&gt;If a function name contains &quot;and&quot;, then it is a code smell; violation of single responsibility&lt;br&gt;
+e.g. CreateXAndManageY() should be CreateX() + ManageY()&lt;br&gt;
+then function composition can be used to create a higher order domain functionality.&lt;/em&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[57 counterproductive software design practices - anti patterns.]]></title><description><![CDATA[anti-pattern Image Source : Photo by Donnie Rosie on Unsplash Software designers talk about design patterns or the best practices for…]]></description><link>https://www.bipinpaulbedi.com2019-03-27-software-anti-patterns</link><guid isPermaLink="false">https://www.bipinpaulbedi.com2019-03-27-software-anti-patterns</guid><pubDate>Wed, 27 Mar 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/2019-03-27-software-anti-patterns/anti-pattern-patch.jpg&quot; alt=&quot;anti-pattern&quot;&gt;&lt;/p&gt;
 &lt;p&gt;Image Source : &lt;a href=&quot;https://unsplash.com/@drosie&quot;&gt;Photo by Donnie Rosie on Unsplash&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Software designers talk about design patterns or the best practices for application designing. The choice is between which mistake is easier to correct: under-doing it or overdoing it.&lt;/p&gt;
 &lt;p&gt;We keep on adding ingredients to the curry and food is left with no taste. Let’s explore some anti-patterns and explore the pitfalls of Software designing.&lt;/p&gt;
@@ -74,7 +201,7 @@
 &lt;li&gt;Silver bullet - Assuming that a favourite technical solution can solve a larger process or problem.&lt;/li&gt;
 &lt;li&gt;Tester driven development - Projects in which new requirements are specified in bug reports.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Phew… don’t stop here, explore more on internet as there can be more pitfalls that you might be already digging. Please share your findings in the comments section below.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[9 laws of architecting microservices]]></title><description><![CDATA[microservicesMicroservice has been a game changer in software development in the last few years, yet it remains a grey area when it comes to…]]></description><link>https://www.bipinpaulbedi.com/2019-01-28-microservices-design-pattern</link><guid isPermaLink="false">https://www.bipinpaulbedi.com/2019-01-28-microservices-design-pattern</guid><pubDate>Mon, 28 Jan 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/2019-01-28-microservices-design-pattern/microservices.png&quot; alt=&quot;microservices&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Phew… don’t stop here, explore more on internet as there can be more pitfalls that you might be already digging. Please share your findings in the comments section below.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[9 laws of architecting microservices]]></title><description><![CDATA[microservices Microservice has been a game changer in software development in the last few years, yet it remains a grey area when it comes…]]></description><link>https://www.bipinpaulbedi.com2019-01-28-microservices-design-pattern</link><guid isPermaLink="false">https://www.bipinpaulbedi.com2019-01-28-microservices-design-pattern</guid><pubDate>Mon, 28 Jan 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/2019-01-28-microservices-design-pattern/microservices.png&quot; alt=&quot;microservices&quot;&gt;&lt;/p&gt;
 &lt;p&gt;Microservice has been a game changer in software development in the last few years, yet it remains a grey area when it comes to making decision around maintainability and implementation of microservices. The evangelists behind microservice approach have built the case around speed, scalability and cohesion stating in that a microservice Change is easy, Units are small, scalability is semi-infinite. So what is Microservice architecture? Microservices — also known as the microservice architecture — is an architectural style that structures an application as a collection of loosely coupled services, which implement business capabilities.&lt;/p&gt;
 &lt;p&gt;We will discuss and summarise some of the implementation factors that have a big impact on indicators of success in your project/software delivery viz:&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Law of repository management&lt;/strong&gt;&lt;/p&gt;
@@ -93,15 +220,9 @@
 &lt;p&gt;&lt;strong&gt;Law of eventual consistency&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Since each service is responsible for consistency and reliability of its data, the cross domain data passing is performed via message passing. It does not result in ACID [atomic, consistent, isolated, durable] principles as these updates are not happening in the transaction. This is can be solved using two-phase commit but will eventually result in high coupling and the core principle of microservices are violated. The microservice architecture is an advocate of CAP theorem i.e. consistent, available and partition tolerant. To achieve the desired benefits of microservices the eventual consistency is implemented via&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Event sourcing - We can query an application&apos;s state to find out the current state of the world, and this answers many questions. However, there are times when we don&apos;t just want to see where we are, we also want to know how we got there. Event Sourcing ensures that all changes to application state are stored as a sequence of events. Not just can we query these events, we can also use the event log to reconstruct past states, and as a foundation to automatically adjust the state to cope with retroactive changes. e.g. database event logs, similar implementation can be adopted for business events and each microservices can perform action independently to bring the system to the desired state eventually.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;CQRS - CQRS stands for Command Query Responsibility Segregation. It&apos;s a pattern that I first heard described by Greg Young. At its heart is the notion that you can use a different model to update information than the model you use to read information. The microservice can process data and keep up to date information for serving Realtime need but can update the core system from the log. e.g. a notification for e-commerce order placement can be served separately to update in ERP system.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Message/Service Bus - For event-based message passing in microservice either a direct call to the service can be initiated or a message broker such as service bus can be implemented for asynchronous communication maintaining the high demand services to scale to serve client needs and keeping background jobs instance low.&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;Event sourcing - We can query an application&apos;s state to find out the current state of the world, and this answers many questions. However, there are times when we don&apos;t just want to see where we are, we also want to know how we got there. Event Sourcing ensures that all changes to application state are stored as a sequence of events. Not just can we query these events, we can also use the event log to reconstruct past states, and as a foundation to automatically adjust the state to cope with retroactive changes. e.g. database event logs, similar implementation can be adopted for business events and each microservices can perform action independently to bring the system to the desired state eventually.&lt;/li&gt;
+&lt;li&gt;CQRS - CQRS stands for Command Query Responsibility Segregation. It&apos;s a pattern that I first heard described by Greg Young. At its heart is the notion that you can use a different model to update information than the model you use to read information. The microservice can process data and keep up to date information for serving Realtime need but can update the core system from the log. e.g. a notification for e-commerce order placement can be served separately to update in ERP system.&lt;/li&gt;
+&lt;li&gt;Message/Service Bus - For event-based message passing in microservice either a direct call to the service can be initiated or a message broker such as service bus can be implemented for asynchronous communication maintaining the high demand services to scale to serve client needs and keeping background jobs instance low.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;The above eventual consistency also require coordination of execution. The solution is defined as a saga. Implement each business transaction that spans multiple services as a saga. A saga is a sequence of local transactions. Each local transaction updates the database and publishes a message or event to trigger the next local transaction in the saga. If a local transaction fails because it violates a business rule then the saga executes a series of compensating transactions that undo the changes that were made by the preceding local transactions.&lt;/p&gt;
 &lt;p&gt;There are two ways of coordination sagas:&lt;/p&gt;
@@ -118,21 +239,11 @@
 &lt;p&gt;&lt;strong&gt;Law of greenfield initiation&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;When working on a greenfield project; multiple design patterns help us structure the system. But following key principles are must have for robust system viz:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Resilience - When a system is under faulty state due to certain unexpected events, the microservice shall be monitored correctly and a new backup service shall immediately become active to minimise the loss of data. If the service or backup is not available then alternate application to keep track of operation shall cover during the downtime. Failure in one service shall not affect other.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Failure - This is an extension of the above-mentioned principle. If a service fails then the dependent service shall have some mechanism to track status and reduce resource wastage. The service might fail temporarily due to some network issue, thus a retry policy shall be applied. A more advanced mechanism would be implementing circuit breaker where after a certain retry it stops sending more message to failed microservice and only passes certain requests in between to check for resume the status.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Availability - Apart from expected and unexpected coding fault recovery, the ability to maintain uptime is the core requirement. Thus having geo-distributed redundant implementation shall be a part of the implementation strategy. For high availability, a blue-green pattern makes sure zero downtime during maintenance and upgrades.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Dev-ops - With the highly scalable environment the automated deployment and ability to version control the services leads to a stable solution. The service discover shall consider service versioning before routing requests.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Scalability - Using ready to deploy lightweight images as container shall allow individual service to scale to meet the growing demand.&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;Resilience - When a system is under faulty state due to certain unexpected events, the microservice shall be monitored correctly and a new backup service shall immediately become active to minimise the loss of data. If the service or backup is not available then alternate application to keep track of operation shall cover during the downtime. Failure in one service shall not affect other.&lt;/li&gt;
+&lt;li&gt;Failure - This is an extension of the above-mentioned principle. If a service fails then the dependent service shall have some mechanism to track status and reduce resource wastage. The service might fail temporarily due to some network issue, thus a retry policy shall be applied. A more advanced mechanism would be implementing circuit breaker where after a certain retry it stops sending more message to failed microservice and only passes certain requests in between to check for resume the status.&lt;/li&gt;
+&lt;li&gt;Availability - Apart from expected and unexpected coding fault recovery, the ability to maintain uptime is the core requirement. Thus having geo-distributed redundant implementation shall be a part of the implementation strategy. For high availability, a blue-green pattern makes sure zero downtime during maintenance and upgrades.&lt;/li&gt;
+&lt;li&gt;Dev-ops - With the highly scalable environment the automated deployment and ability to version control the services leads to a stable solution. The service discover shall consider service versioning before routing requests.&lt;/li&gt;
+&lt;li&gt;Scalability - Using ready to deploy lightweight images as container shall allow individual service to scale to meet the growing demand.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;Law of brownfield transition&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;When transitioning from a brownfield project, more effort is required to make sure the stability of the system is not affected. In these scenarios, the Strangler pattern comes to the rescue. The Strangler pattern is based on an analogy to a vine that strangles a tree that it’s wrapped around with. This solution works well with web applications, where a call goes back and forth, and for each URI call, a service can be broken into different domains and hosted as separate services. The idea is to do one domain at a time. This creates two separate applications that live side by side in the same URI space. Eventually, the newly refactored application “strangles” or replaces the original application until finally, you can shut off the monolithic application.&lt;/p&gt;
@@ -164,7 +275,7 @@
 &lt;li&gt;Monitor APIs.&lt;/li&gt;
 &lt;li&gt;Map your monitoring to your organisational structure.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;By practising the above laws an architect can create a robust solution, using microservices.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[phoenix/elixir - concurrency actor model with 'let it crash' philosophy]]></title><description><![CDATA[A concurrent program has multiple logical threads of control. These threads may or may not run in parallel. A parallel program potentially…]]></description><link>https://www.bipinpaulbedi.com/2019-01-04-elixir-concurrency-models</link><guid isPermaLink="false">https://www.bipinpaulbedi.com/2019-01-04-elixir-concurrency-models</guid><pubDate>Fri, 04 Jan 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;A concurrent program has multiple logical threads of control. These threads may or may not run in parallel. A parallel program potentially runs more quickly than a sequential program by executing different parts of the computation simultaneously (in parallel). It may or may not have more than one logical thread of control. An alternative way of thinking about this is that concurrency is an aspect of the problem domain—your program needs to handle multiple simultaneous (or near-simultaneous) events. Parallelism, by contrast, is an aspect of the solution domain—you want to make your program faster by processing different portions of the problem in parallel.&lt;/p&gt;
+&lt;p&gt;By practising the above laws an architect can create a robust solution, using microservices.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[phoenix/elixir - concurrency actor model with 'let it crash' philosophy]]></title><description><![CDATA[A concurrent program has multiple logical threads of control. These threads may or may not run in parallel. A parallel program potentially…]]></description><link>https://www.bipinpaulbedi.com2019-01-04-elixir-concurrency-models</link><guid isPermaLink="false">https://www.bipinpaulbedi.com2019-01-04-elixir-concurrency-models</guid><pubDate>Fri, 04 Jan 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;A concurrent program has multiple logical threads of control. These threads may or may not run in parallel. A parallel program potentially runs more quickly than a sequential program by executing different parts of the computation simultaneously (in parallel). It may or may not have more than one logical thread of control. An alternative way of thinking about this is that concurrency is an aspect of the problem domain—your program needs to handle multiple simultaneous (or near-simultaneous) events. Parallelism, by contrast, is an aspect of the solution domain—you want to make your program faster by processing different portions of the problem in parallel.&lt;/p&gt;
 &lt;p&gt;Functional programming avoids the problems associated with a shared mutable state by avoiding mutable state. Actor programming, by contrast, retains mutable state but avoids sharing it. An actor is like an object in an object-oriented (OO) program—it encapsulates state and communicates with other actors by exchanging messages. The difference is that actors run concurrently with each other and, unlike OO-style message passing (which is really just calling a method), actors really communicate by sending messages to each other.&lt;/p&gt;
 &lt;p&gt;Certainly, there are some concurrent programs that will always be non-deterministic. And this is unavoidable—some problems require solutions that are intrinsically dependent on the details of timing. But it’s not the case that all parallel programs are necessarily non-deterministic. The value of the sum of the numbers between 0 and 10,000 won’t change just because we add those numbers together in parallel instead of sequentially&lt;/p&gt;
 &lt;p&gt;Microsoft &lt;a href=&quot;https://dotnet.github.io/orleans/&quot;&gt;Orleans&lt;/a&gt; is .net implementation of Actor Model but we will focus on programming language which was built with a focus on concurrent execution. Elixir/Erlang: Erlang is a programming language used to build massively scalable soft real-time systems with requirements on high availability. Some of its uses are in telecoms, banking, e-commerce, computer telephony and instant messaging. Erlang&apos;s runtime system has built-in support for concurrency, distribution and fault tolerance.
@@ -348,7 +459,7 @@ end
 &lt;p&gt;Now use Node.Spwan to start worker or supervisors and use :global.register_name() instead of Process.register() to make names cluster global.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Important notes&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;For this explanatory purpose, we used dynamic atom naming above. However, naming dynamic processes with atoms is a terrible idea! If we use atoms, we would need to convert the name (often received from an external client) to atoms, and we should never convert user input to atoms. This is because atoms are not garbage collected. Once an atom is created, it is never reclaimed. Generating atoms from user input would mean the user can inject enough different names to exhaust our system memory!&lt;/p&gt;
-&lt;p&gt;In practice, it is more likely you will reach the Erlang VM limit for the maximum number of atoms before you run out of memory, which will bring your system down regardless. Moreover, supervisor model used above can result in inconsistent naming convention across various modules and libraries. Thus elixir provides a standard protocol for defining, starting and maintaining workers using efficient bucketed methodology using &lt;a href=&quot;https://elixir-lang.org/getting-started/mix-otp/genserver.html&quot;&gt;GenServer&lt;/a&gt;, providing standard call, cast and info method implementation for various operation.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[ELI5 - Asymptotic computational complexity simplified]]></title><description><![CDATA[The asymptotic notation is the mathematical representation to analyze algorithm and represent its time (and/or space) complexity as its…]]></description><link>https://www.bipinpaulbedi.com/2018-10-20-asymtotic-notations</link><guid isPermaLink="false">https://www.bipinpaulbedi.com/2018-10-20-asymtotic-notations</guid><pubDate>Sat, 20 Oct 2018 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;The asymptotic notation is the mathematical representation to analyze algorithm and represent its time (and/or space) complexity as its relation to input size. It describes its behavioral characteristics as the input size for the algorithm increases. The algorithm complexity can also be measured by monitoring time and space usage during its actual physical execution. This approach is not ideal for the following reasons&lt;/p&gt;
+&lt;p&gt;In practice, it is more likely you will reach the Erlang VM limit for the maximum number of atoms before you run out of memory, which will bring your system down regardless. Moreover, supervisor model used above can result in inconsistent naming convention across various modules and libraries. Thus elixir provides a standard protocol for defining, starting and maintaining workers using efficient bucketed methodology using &lt;a href=&quot;https://elixir-lang.org/getting-started/mix-otp/genserver.html&quot;&gt;GenServer&lt;/a&gt;, providing standard call, cast and info method implementation for various operation.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[ELI5 - Asymptotic computational complexity simplified]]></title><description><![CDATA[The asymptotic notation is the mathematical representation to analyze algorithm and represent its time (and/or space) complexity as its…]]></description><link>https://www.bipinpaulbedi.com2018-10-20-asymtotic-notations</link><guid isPermaLink="false">https://www.bipinpaulbedi.com2018-10-20-asymtotic-notations</guid><pubDate>Sat, 20 Oct 2018 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;The asymptotic notation is the mathematical representation to analyze algorithm and represent its time (and/or space) complexity as its relation to input size. It describes its behavioral characteristics as the input size for the algorithm increases. The algorithm complexity can also be measured by monitoring time and space usage during its actual physical execution. This approach is not ideal for the following reasons&lt;/p&gt;
 &lt;p&gt;The accuracy and relativity (times obtained would only be relative to the machine they were computed on) of this method is bound to environmental variables such as computer hardware specifications, processing power, etc.&lt;br&gt;
 To conclude a general behavior we would have to execute it in several different scenarios.&lt;/p&gt;
 &lt;p&gt;Thus by representing an algorithm using asymptotic notation, it is much easier, faster and standard methodology to analyze and compare algorithms. For this post, we will restrict our discussion to time complexities {since the tremendous technological advancement has led to the cost of storage (persistent or ephemeral) as negligible}. In any problem domain, for a given algorithm f, with input size n we calculate some resultant runtime f(n). This results in a graph where the Y-axis is the runtime, X-axis is the input size, and plot points are the resultants of the amount of time for a given input size. We would mostly measure the worst-case scenario for any algorithm to compare different algorithms against the standard set of facts and dimentions.&lt;/p&gt;
@@ -407,7 +518,7 @@ For lower bound = 1 * 1 * 1 * 1 * 1...1
 = k
 Thus f(n) = BIG-OMEGA(1) or BIG-OMEGA(K)
 since O and BIG-OMEGA for n! is not equal it does not have a tight bound
-&lt;/code&gt;&lt;/pre&gt;</content:encoded></item><item><title><![CDATA[L1 & L2 model regularizations techniques]]></title><description><![CDATA[The most difficult and time consuming activity in any machine learning project is modelling the domain. The objective of training the model…]]></description><link>https://www.bipinpaulbedi.com/2018-10-12-regularization-for-machine-learning-models</link><guid isPermaLink="false">https://www.bipinpaulbedi.com/2018-10-12-regularization-for-machine-learning-models</guid><pubDate>Fri, 12 Oct 2018 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;The most difficult and time consuming activity in any machine learning project is modelling the domain. The objective of training the model is to reduce the cost function, which can have direct dependency on feature selection and their representation. The results you achieve is a function of the model features and the weights being selected. Even your framing of the problem and measures you’re using to estimate accuracy play a part. Your results are dependent on many inter-dependent properties&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;</content:encoded></item><item><title><![CDATA[L1 & L2 model regularizations techniques]]></title><description><![CDATA[The most difficult and time consuming activity in any machine learning project is modelling the domain. The objective of training the model…]]></description><link>https://www.bipinpaulbedi.com2018-10-12-regularization-for-machine-learning-models</link><guid isPermaLink="false">https://www.bipinpaulbedi.com2018-10-12-regularization-for-machine-learning-models</guid><pubDate>Fri, 12 Oct 2018 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;The most difficult and time consuming activity in any machine learning project is modelling the domain. The objective of training the model is to reduce the cost function, which can have direct dependency on feature selection and their representation. The results you achieve is a function of the model features and the weights being selected. Even your framing of the problem and measures you’re using to estimate accuracy play a part. Your results are dependent on many inter-dependent properties&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Feature engineering is the process of transforming raw data into features that better represent the underlying problem to the predictive models, resulting in improved model accuracy on unseen data.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -430,7 +541,7 @@ In L1 regularization, we penalize the absolute value of the weights. The weights
 A regression model model which uses L2 is called Ridge Regression.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;Cost function = Loss + Λ/2m * σ|weight|^2&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;It adds “squared magnitude” of coefficient as penalty term to the loss function. L2 regularization is also known as weight decay as it forces the weights to decay towards zero (but not exactly zero).&lt;/p&gt;
-&lt;p&gt;The key difference between these techniques is that in L1 the less important feature’s coefficient are reduced to zero thus, removing some feature altogether. So, this works well for feature selection in case we have a huge number of features.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Developers guide to designing REST endpoints]]></title><description><![CDATA[As per Wikipedia, Design thinking is the cognitive process from which design concepts (e.g. ideas for products) emerge. Design thinking is…]]></description><link>https://www.bipinpaulbedi.com/2018-10-10-coding-blueprint-for-pragmatic-rest-api-developers</link><guid isPermaLink="false">https://www.bipinpaulbedi.com/2018-10-10-coding-blueprint-for-pragmatic-rest-api-developers</guid><pubDate>Wed, 10 Oct 2018 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;As per Wikipedia, Design thinking is the cognitive process from which design concepts (e.g. ideas for products) emerge. Design thinking is related to, but is different from problem-solving, decision-making, creativity, sketching and prototyping. During design thinking, the designer&apos;s attention oscillates between their understanding of a problem context and their ideas for a solution. New solution ideas lead to a deeper understanding of the problematic context, which in turn triggers more solution ideas.&lt;/p&gt;
+&lt;p&gt;The key difference between these techniques is that in L1 the less important feature’s coefficient are reduced to zero thus, removing some feature altogether. So, this works well for feature selection in case we have a huge number of features.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Developers guide to designing REST endpoints]]></title><description><![CDATA[As per Wikipedia, Design thinking is the cognitive process from which design concepts (e.g. ideas for products) emerge. Design thinking is…]]></description><link>https://www.bipinpaulbedi.com2018-10-10-coding-blueprint-for-pragmatic-rest-api-developers</link><guid isPermaLink="false">https://www.bipinpaulbedi.com2018-10-10-coding-blueprint-for-pragmatic-rest-api-developers</guid><pubDate>Wed, 10 Oct 2018 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;As per Wikipedia, Design thinking is the cognitive process from which design concepts (e.g. ideas for products) emerge. Design thinking is related to, but is different from problem-solving, decision-making, creativity, sketching and prototyping. During design thinking, the designer&apos;s attention oscillates between their understanding of a problem context and their ideas for a solution. New solution ideas lead to a deeper understanding of the problematic context, which in turn triggers more solution ideas.&lt;/p&gt;
 &lt;p&gt;When your focus acts like a pendulum between problem context and the creative solution then you are bound to wear multiple hats. The irony as the developer when designing API is that your clients are other developers.
 Over the past decade after working under some fine mentors the summary of the learning can be stated as “Think of developing API endpoints for a command line interface, possibly it will result in self-understandable, complete solution you are seeking”.&lt;/p&gt;
 &lt;p&gt;This post is inspired by eBook published by APIgee highlighting the best practiced for REST design. As an API designer, I have gone through some challenges myself, viz.&lt;/p&gt;
